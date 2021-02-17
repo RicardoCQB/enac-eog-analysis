@@ -60,14 +60,17 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
     plt.legend(labels)
 
     # Reading the .csv file that contains the triggers for this .edf signal file
-    triggerCsv = pd.read_csv('C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_602.csv')
 
-    #print(triggerCsv)
+    try:
+        triggerCsv = pd.read_csv('C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_603.csv')
 
-    for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
-        if triggerPoint >= start and triggerPoint <= end:
-            plt.axvline(x=triggerPoint-start, color='black')
-            plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
+        for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
+            if triggerPoint >= start and triggerPoint <= end:
+                plt.axvline(x=triggerPoint-start, color='black')
+                plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
+    except FileNotFoundError as e:
+        print(e)
+        print('\n The .csv file was not found, therefore the labels of the triggers will not be shown.')
 
     plt.show()
 
