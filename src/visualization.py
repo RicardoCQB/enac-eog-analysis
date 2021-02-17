@@ -19,12 +19,13 @@ def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
     :param yAxisLabel: label of the y axis
     :return:
     '''
-    plt.figure(figsize=(20, 5))
+    plt.figure(figsize=(20, 5), dpi=90)
     signal = signal[:, start:end]
     signal = np.swapaxes(signal,0,1)
     plt.plot(signal)
     plt.xlabel(xAxisLabel)
     plt.ylabel(yAxisLabel)
+    plt.ylim((-400,400))
     plt.legend(labels)
     plt.show()
 
@@ -43,7 +44,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
     verticalEOG = verticalEOG[start:end]
     horizontalEOG = horizontalEOG[start:end]
 
-    plt.figure(figsize=(40, 10))
+    plt.figure(figsize=(40, 10), dpi=90)
     if mode == 'both':
         plt.plot(verticalEOG, color='cyan')
         plt.plot(horizontalEOG, color='magenta')
@@ -57,12 +58,13 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
 
     plt.xlabel('Datapoint')
     plt.ylabel('Amplitude (microVolts)')
+    plt.ylim((-400,400))
     plt.legend(labels)
 
     # Reading the .csv file that contains the triggers for this .edf signal file
 
     try:
-        triggerCsv = pd.read_csv('C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_603.csv')
+        triggerCsv = pd.read_csv('C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_602.csv')
 
         for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
             if triggerPoint >= start and triggerPoint <= end:
