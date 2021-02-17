@@ -31,7 +31,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
     verticalEOG = verticalEOG[start:end]
     horizontalEOG = horizontalEOG[start:end]
 
-    plt.figure(figsize=(50, 5))
+    plt.figure(figsize=(20, 5))
     if mode == 'both':
         plt.plot(verticalEOG, color='cyan')
         plt.plot(horizontalEOG, color='magenta')
