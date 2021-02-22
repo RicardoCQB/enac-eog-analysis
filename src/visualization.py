@@ -29,7 +29,7 @@ def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
     plt.legend(labels)
     plt.show()
 
-def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
+def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both', labelsCsvFile=None):
     '''
     Function for plotting the vertical and horizontal EOG signals, these signals are the ones that will be used to
     detect and classify saccades.
@@ -39,6 +39,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
     :param end: integer index of the end of the plot
     :param mode: the mode chooses if it is plotted the vertical EOG or the horizontal EOG or both
     Therefore, there are three modes: 'both', 'vertical' and 'horizontal'
+    :param labelsCsvFile: the name of the file that contains the names of the triggers
     :return:
     '''
     verticalEOG = verticalEOG[start:end]
@@ -63,19 +64,16 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both'):
 
     # Reading the .csv file that contains the triggers for this .edf signal file
 
-    try:
-        triggerCsv = pd.read_csv('C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_602.csv')
+    if labelsCsvFile is not None:
+        try:
+            triggerCsv = pd.read_csv(labelsCsvFile)
 
-        for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
-            if triggerPoint >= start and triggerPoint <= end:
-                plt.axvline(x=triggerPoint-start, color='black')
-                plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
-    except FileNotFoundError as e:
-        print(e)
-        print('\n The .csv file was not found, therefore the labels of the triggers will not be shown.')
+            for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
+                if start <= triggerPoint <= end:
+                    plt.axvline(x=triggerPoint-start, color='black')
+                    plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
+        except FileNotFoundError as e:
+            print(e)
+            print('\n The .csv file was not found, therefore the labels of the triggers will not be shown.')
 
     plt.show()
-
-
-
-
