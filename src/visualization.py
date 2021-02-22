@@ -29,7 +29,7 @@ def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
     plt.legend(labels)
     plt.show()
 
-def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both', labelsCsvFile=None):
+def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both', triggerCsv=None):
     '''
     Function for plotting the vertical and horizontal EOG signals, these signals are the ones that will be used to
     detect and classify saccades.
@@ -62,18 +62,10 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both', labelsCs
     plt.ylim((-400,400))
     plt.legend(labels)
 
-    # Reading the .csv file that contains the triggers for this .edf signal file
-
-    if labelsCsvFile is not None:
-        try:
-            triggerCsv = pd.read_csv(labelsCsvFile)
-
-            for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
-                if start <= triggerPoint <= end:
-                    plt.axvline(x=triggerPoint-start, color='black')
-                    plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
-        except FileNotFoundError as e:
-            print(e)
-            print('\n The .csv file was not found, therefore the labels of the triggers will not be shown.')
-
+    # If the labels csv is being used, then the labels are stamped in the plot
+    if triggerCsv is not None:
+        for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
+            if start <= triggerPoint <= end:
+                plt.axvline(x=triggerPoint-start, color='black')
+                plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
     plt.show()
