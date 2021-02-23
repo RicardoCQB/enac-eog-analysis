@@ -41,10 +41,19 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
         elif triggerLabel == labelEnd:
             endIndexes.append(triggerPoint)
 
+    if len(startIndexes) != len(endIndexes):
+        raise Exception('The number of starting indexes of {} is different from {}. {} != {}'
+                        .format(labelStart, labelEnd, len(startIndexes), len(endIndexes)))
+
     return startIndexes, endIndexes
 
-
-def getEogAnalysisSection(signal, triggerCsv):
+def getEogCalibrationPart(signal, triggerCsv):
+    '''
+    Returns the part of the EOG signal that corresponds to the calibration
+    :param signal: EOG vertical or horizontal signal
+    :param triggerCsv: array structure with the labels of the triggers and their datapoint index
+    :return: signal part corresponding to the calibration
+    '''
 
     calStartIndexes, calEndIndexes = getEogLabelIndexes(triggerCsv,
                                                         labelDict['CalibrationStart'],
@@ -52,6 +61,23 @@ def getEogAnalysisSection(signal, triggerCsv):
     calStart = calStartIndexes[0]
     calEnd = calEndIndexes[-1]
     calibrationPart = signal[calStart:calEnd]
+
+    return calibrationPart
+
+def getEogSAVParts(signal, triggerCsv):
+
+    semanticStartIndexes, semanticEndIndexes = getEogLabelIndexes(triggerCsv,
+                                                                  labelDict['SemanticAcessStart'],
+                                                                  labelDict['SemanticDebriefingStart'])
+
+    
+
+
+
+def getEogAnalysisSection(signal, triggerCsv):
+    calibrationPart = getEogCalibrationPart(signal, triggerCsv)
+
+
 
 
 
