@@ -6,7 +6,7 @@ import pyedflib
 import numpy as np
 
 # Function that reads from the signal and finds certain section
-def getEogSection(triggerCsv, labelStart, labelEnd):
+def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
     '''
     It returns the list of indexes that contain the desired label. It is useful when we want to select
     specific parts of the signal
