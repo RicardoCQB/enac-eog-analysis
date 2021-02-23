@@ -5,7 +5,22 @@ edf file from the non useful sections. This separation will be made using the tr
 import pyedflib
 import numpy as np
 
-# Function that reads from the signal and finds certain section
+labelDict = {
+    'CalibrationStart': 'calibration_EOG_C_start',
+    'CalibrationEnd': 'calibration_EOG_C_end',
+
+    'SemanticAcessStart': 'S_access',
+    'AutobioAcessStart': 'A_access',
+    'VisualImageStart': 'V_image',
+
+    'SemanticVisualizationStart': 'S_visualization',
+    'AutiobioVisualizationStart': 'A_visualization',
+
+    'SemanticDebriefingStart': 'S_debriefing',
+    'AutobioDebriefingStart': 'A_debriefing',
+    'VisualDebriefingStart': 'V_debriefing'
+}
+
 def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
     '''
     It returns the list of indexes that contain the desired label. It is useful when we want to select
@@ -18,6 +33,8 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
     '''
     startIndexes = []
     endIndexes = []
+
+    # Stores the labels' indexes that correspond to the start and end label in arrays.
     for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
         if triggerLabel == labelStart:
             startIndexes.append(triggerPoint)
@@ -25,3 +42,17 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
             endIndexes.append(triggerPoint)
 
     return startIndexes, endIndexes
+
+
+def getEogAnalysisSection(signal, triggerCsv):
+
+    calStartIndexes, calEndIndexes = getEogLabelIndexes(triggerCsv,
+                                                        labelDict['CalibrationStart'],
+                                                        labelDict['CalibrationEnd'])
+    calStart = calStartIndexes[0]
+    calEnd = calEndIndexes[-1]
+    calibrationPart = signal[calStart:calEnd]
+
+
+
+
