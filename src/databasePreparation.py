@@ -14,7 +14,7 @@ labelDict = {
     'VisualImageStart': 'V_image',
 
     'SemanticVisualizationStart': 'S_visualization',
-    'AutiobioVisualizationStart': 'A_visualization',
+    'AutobioVisualizationStart': 'A_visualization',
 
     'SemanticDebriefingStart': 'S_debriefing',
     'AutobioDebriefingStart': 'A_debriefing',
@@ -58,27 +58,44 @@ def getEogCalibrationPart(signal, triggerCsv):
     calStartIndexes, calEndIndexes = getEogLabelIndexes(triggerCsv,
                                                         labelDict['CalibrationStart'],
                                                         labelDict['CalibrationEnd'])
+    # First start element of the calibration
     calStart = calStartIndexes[0]
+    # Last end element of the calibration
     calEnd = calEndIndexes[-1]
+
+    # With the first start element and the last end element we can extract the entire calibration part
     calibrationPart = signal[calStart:calEnd]
 
     return calibrationPart
 
+def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
+    startIndexes, endIndexes = getEogLabelIndexes(triggerCsv, labelStart, labelEnd)
+    eogSignalParts = []
+
+    for startIndex, endIndex in zip(startIndexes, endIndexes):
+        eogSignalParts.append(signal[startIndex, endIndex])
+
+    return eogSignalParts
+
 def getEogSAVParts(signal, triggerCsv):
+    semanticParts = getEogSeveralParts(signal, triggerCsv,
+                                       labelDict['SemanticAcessStart'],
+                                       labelDict['SemanticDebriefingStart'])
 
-    semanticStartIndexes, semanticEndIndexes = getEogLabelIndexes(triggerCsv,
-                                                                  labelDict['SemanticAcessStart'],
-                                                                  labelDict['SemanticDebriefingStart'])
+    autobioParts = getEogSeveralParts(signal, triggerCsv,
+                                       labelDict['AutobioAcessStart'],
+                                       labelDict['AutobioDebriefingStart'])
 
-    
+    visualTaskParts = getEogSeveralParts(signal, triggerCsv,
+                                         labelDict['VisualImageStart'],
+                                         labelDict['VisualDebriefingStart'])
 
+    return semanticParts, autobioParts, visualTaskParts
 
 
 def getEogAnalysisSection(signal, triggerCsv):
     calibrationPart = getEogCalibrationPart(signal, triggerCsv)
 
+    semanticParts, autobioParts, visualTaskParts = getEogSAVParts(signal, triggerCsv)
 
-
-
-
-
+    return calibrationPart, semanticParts, autobioParts, visualTaskParts
