@@ -37,9 +37,9 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
     # Stores the labels' indexes that correspond to the start and end label in arrays.
     for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
         if triggerLabel == labelStart:
-            startIndexes.append(triggerPoint)
+            startIndexes.append(np.math.floor(triggerPoint))
         elif triggerLabel == labelEnd:
-            endIndexes.append(triggerPoint)
+            endIndexes.append(np.math.floor(triggerPoint))
 
     if len(startIndexes) != len(endIndexes):
         raise Exception('The number of starting indexes of {} is different from {}. {} != {}'
@@ -62,9 +62,8 @@ def getEogCalibrationPart(signal, triggerCsv):
     calStart = calStartIndexes[0]
     # Last end element of the calibration
     calEnd = calEndIndexes[-1]
-
     # With the first start element and the last end element we can extract the entire calibration part
-    calibrationPart = signal[calStart:calEnd]
+    calibrationPart = signal[:,calStart:calEnd] # calibrationPart = signal[calStart:CalEnd]
 
     return calibrationPart
 
@@ -73,7 +72,8 @@ def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
     eogSignalParts = []
 
     for startIndex, endIndex in zip(startIndexes, endIndexes):
-        eogSignalParts.append(signal[startIndex, endIndex])
+        eogSignalParts.append(signal[:, startIndex, endIndex])
+        #eogSignalParts.append(signal[startIndex:endIndex])
 
     return eogSignalParts
 
