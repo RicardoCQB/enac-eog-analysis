@@ -19,7 +19,7 @@ def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
     :param yAxisLabel: label of the y axis
     :return:
     '''
-    plt.figure(figsize=(20, 5), dpi=90)
+    plt.figure(figsize=(20, 5), dpi=90) #700,20
     signal = signal[:, start:end]
     signal = np.swapaxes(signal,0,1)
     plt.plot(signal)
