@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
+def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
                   xAxisLabel='Datapoint',
                   yAxisLabel='Amplitude (microVolts)'):
     '''
@@ -20,7 +20,8 @@ def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
     :return:
     '''
     plt.figure(figsize=(20, 5), dpi=90) #700,20
-    signal = signal[:, start:end]
+    if start and end is not None:
+        signal = signal[:, start:end]
     signal = np.swapaxes(signal,0,1)
     plt.plot(signal)
     plt.xlabel(xAxisLabel)
@@ -29,7 +30,7 @@ def plotEogElectrodesSignal(signal, start=0, end=1000, labels=[],
     plt.legend(labels)
     plt.show()
 
-def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both', triggerCsv=None):
+def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both', triggerCsv=None):
     '''
     Function for plotting the vertical and horizontal EOG signals, these signals are the ones that will be used to
     detect and classify saccades.
@@ -42,8 +43,8 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start, end, mode='both', triggerC
     :param labelsCsvFile: the name of the file that contains the names of the triggers
     :return:
     '''
-    verticalEOG = verticalEOG[start:end]
-    horizontalEOG = horizontalEOG[start:end]
+    #verticalEOG = verticalEOG[start:end]
+    #horizontalEOG = horizontalEOG[start:end]
 
     plt.figure(figsize=(40, 10), dpi=90)
     if mode == 'both':

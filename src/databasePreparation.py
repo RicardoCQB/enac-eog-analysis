@@ -54,7 +54,6 @@ def getEogCalibrationPart(signal, triggerCsv):
     :param triggerCsv: array structure with the labels of the triggers and their datapoint index
     :return: signal part corresponding to the calibration
     '''
-    calibrationPart =[]
     calStartIndexes, calEndIndexes = getEogLabelIndexes(triggerCsv,
                                                         labelDict['CalibrationStart'],
                                                         labelDict['CalibrationEnd'])
