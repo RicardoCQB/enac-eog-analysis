@@ -2,7 +2,6 @@
 edf file from the non useful sections. This separation will be made using the trigger labels available in the
  labels_triggers_*.csv'''
 
-import pyedflib
 import numpy as np
 
 labelDict = {
@@ -47,6 +46,7 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
 
     return startIndexes, endIndexes
 
+
 def getEogCalibrationPart(signal, triggerCsv):
     '''
     Returns the part of the EOG signal that corresponds to the calibration
@@ -54,7 +54,7 @@ def getEogCalibrationPart(signal, triggerCsv):
     :param triggerCsv: array structure with the labels of the triggers and their datapoint index
     :return: signal part corresponding to the calibration
     '''
-
+    calibrationPart =[]
     calStartIndexes, calEndIndexes = getEogLabelIndexes(triggerCsv,
                                                         labelDict['CalibrationStart'],
                                                         labelDict['CalibrationEnd'])
@@ -63,17 +63,23 @@ def getEogCalibrationPart(signal, triggerCsv):
     # Last end element of the calibration
     calEnd = calEndIndexes[-1]
     # With the first start element and the last end element we can extract the entire calibration part
-    calibrationPart = signal[:,calStart:calEnd] # calibrationPart = signal[calStart:CalEnd]
+    if len(signal.shape) == 1: # 1D Numpy Array (Vertical and Horizontal EOG)
+        calibrationPart = signal[calStart:calEnd]
+    elif len(signal.shape) == 2: # 2D Numpy Array (4 electrodes EOG)
+        calibrationPart = signal[:, calStart:calEnd]
 
     return calibrationPart
+
 
 def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
     startIndexes, endIndexes = getEogLabelIndexes(triggerCsv, labelStart, labelEnd)
     eogSignalParts = []
 
     for startIndex, endIndex in zip(startIndexes, endIndexes):
-        eogSignalParts.append(signal[:, startIndex:endIndex])
-        #eogSignalParts.append(signal[startIndex:endIndex])
+        if len(signal.shape) == 1:
+            eogSignalParts.append(signal[startIndex:endIndex])
+        elif len(signal.shape) == 2:
+            eogSignalParts.append(signal[:, startIndex:endIndex])
 
     return eogSignalParts
 
