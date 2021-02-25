@@ -23,10 +23,15 @@ class TestDataPreparation(unittest.TestCase):
         self.assertEqual(resultEndIndexes, endIndexes)
 
     def test_getEogCalibrationPart(self):
-
         calibrationPart = databasePreparation.getEogCalibrationPart(self.signal, self.triggerCsv)
-        print(self.signal.shape)
-        print(calibrationPart.shape)
+        self.assertEqual(calibrationPart.shape, (4, 38121))
+
+    def test_getEogSeveralParts(self):
+        semanticParts = databasePreparation.getEogSeveralParts(self.signal, self.triggerCsv,
+                                           databasePreparation.labelDict['SemanticAcessStart'],
+                                           databasePreparation.labelDict['SemanticDebriefingStart'])
+        self.assertEqual(semanticParts[0].shape, (4, 27154))
+
 
 if __name__ == '__main__':
     unittest.main()

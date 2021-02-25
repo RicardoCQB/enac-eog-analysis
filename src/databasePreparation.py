@@ -72,7 +72,7 @@ def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
     eogSignalParts = []
 
     for startIndex, endIndex in zip(startIndexes, endIndexes):
-        eogSignalParts.append(signal[:, startIndex, endIndex])
+        eogSignalParts.append(signal[:, startIndex:endIndex])
         #eogSignalParts.append(signal[startIndex:endIndex])
 
     return eogSignalParts
