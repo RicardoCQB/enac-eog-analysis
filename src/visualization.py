@@ -30,7 +30,8 @@ def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
     plt.legend(labels)
     plt.show()
 
-def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both', triggerCsv=None):
+def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both', triggerCsv=None,
+                   triggerStart=None, triggerEnd=None):
     '''
     Function for plotting the vertical and horizontal EOG signals, these signals are the ones that will be used to
     detect and classify saccades.
@@ -43,8 +44,9 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
     :param labelsCsvFile: the name of the file that contains the names of the triggers
     :return:
     '''
-    #verticalEOG = verticalEOG[start:end]
-    #horizontalEOG = horizontalEOG[start:end]
+    if start and end is not None:
+        verticalEOG = verticalEOG[start:end]
+        horizontalEOG = horizontalEOG[start:end]
 
     plt.figure(figsize=(40, 10), dpi=90)
     if mode == 'both':
@@ -64,9 +66,9 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
     plt.legend(labels)
 
     # If the labels csv is being used, then the labels are stamped in the plot
-    if triggerCsv is not None:
+    if triggerStart and triggerEnd and triggerCsv is not None:
         for triggerPoint, triggerLabel in zip(triggerCsv['latency'], triggerCsv['type']):
-            if start <= triggerPoint <= end:
-                plt.axvline(x=triggerPoint-start, color='black')
-                plt.text(triggerPoint-start, 0, triggerLabel, rotation='vertical')
+            if triggerStart <= triggerPoint <= triggerEnd:
+                plt.axvline(x=triggerPoint-triggerStart, color='black')
+                plt.text(triggerPoint-triggerStart, 0, triggerLabel, rotation='vertical')
     plt.show()
