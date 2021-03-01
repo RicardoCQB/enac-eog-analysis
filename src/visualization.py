@@ -19,7 +19,7 @@ def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
     :param yAxisLabel: label of the y axis
     :return:
     '''
-    plt.figure(figsize=(20, 5), dpi=90) #700,20
+    plt.figure(figsize=(50, 20), dpi=90) #700,20
     if start and end is not None:
         signal = signal[:, start:end]
     signal = np.swapaxes(signal,0,1)
@@ -48,7 +48,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
         verticalEOG = verticalEOG[start:end]
         horizontalEOG = horizontalEOG[start:end]
 
-    plt.figure(figsize=(40, 10), dpi=90)
+    plt.figure(figsize=(50, 20), dpi=90)
     if mode == 'both':
         plt.plot(verticalEOG, color='cyan')
         plt.plot(horizontalEOG, color='magenta')
