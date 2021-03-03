@@ -22,6 +22,6 @@ def electrodesToVertHori(electrodeSignals, leftInd, rightInd, downInd, upInd):
 
     return verticalEOG, horizontalEOG
 
-def meanPadArtifacts(signal, numCut):
+def zeroPadArtifacts(signal, numCut):
     # Returns signal a certain number of elements cut from the start and end of the signal
     return signal[numCut:-numCut]
