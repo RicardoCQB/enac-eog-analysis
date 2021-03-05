@@ -18,3 +18,19 @@ def peaksToBinary(peaksArray, eogCWT):
             peaksBinary[i] = 1
 
     return peaksBinary
+
+
+def peaksBinaryToString(peaksBinary):
+    '''
+    Turns the array with the binary code for the negative and positive peaks and turns it into to a string
+    :param peaksBinary: rray with the binary code for the negative and positive peaks
+    :return: returns a string with 0's and 1's
+    '''
+
+    peaksString = np.array2string(peaksBinary.astype(int))
+
+    peaksString = peaksString.replace(' ', '')
+    peaksString = peaksString.replace('[', '')
+    peaksString = peaksString.replace(']', '')
+
+    return peaksString
