@@ -50,6 +50,6 @@ def countEyeMovements(vertPeaksString, horiPeaksString):
     downwardSaccadeCount = vertPeaksString.count('1001')
     leftSaccadeCount = horiPeaksString.count('0110')
     rightSaccadeCount = horiPeaksString.count('1001')
-    blinksCount = vertPeaksString.count('010')
+    blinksCount = vertPeaksString.count('010') # This is wrong and needs to be worked on
 
     return upwardSaccadeCount, downwardSaccadeCount, leftSaccadeCount, rightSaccadeCount, blinksCount
