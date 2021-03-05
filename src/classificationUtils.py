@@ -34,3 +34,22 @@ def peaksBinaryToString(peaksBinary):
     peaksString = peaksString.replace(']', '')
 
     return peaksString
+
+
+def countEyeMovements(vertPeaksString, horiPeaksString):
+    '''
+    This function counts the number of each type movement that occur in the signal based on codes that define them
+    On the verticalEOG: 0110 represents an upwards saccade and 1001 represents a downwards saccade
+    On the horizontal EOG: 0110 represents a left saccade and 1001 represents a right saccade
+    :param vertPeaksString: 0's and 1's representing the negative and positive peaks of the vertical EOG signal
+    :param horiPeaksString: 0's and 1's representing the negative and positive peaks of the horizontal EOG signal
+    :return: returns the eye movements count
+    '''
+
+    upwardSaccadeCount = vertPeaksString.count('0110')
+    downwardSaccadeCount = vertPeaksString.count('1001')
+    leftSaccadeCount = horiPeaksString.count('0110')
+    rightSaccadeCount = horiPeaksString.count('1001')
+    blinksCount = vertPeaksString.count('010')
+
+    return upwardSaccadeCount, downwardSaccadeCount, leftSaccadeCount, rightSaccadeCount, blinksCount
