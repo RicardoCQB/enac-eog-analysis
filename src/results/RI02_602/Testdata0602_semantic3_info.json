@@ -1,0 +1,12 @@
+{
+   "name": "Testdata0602_semantic3",
+   "wavelet": "Mexican Hat",
+   "scale": "30",
+   "lowThreshold": "90",
+   "highThreshold": "600",
+   "upSaccadeCount": "1",
+   "downSaccadeCount": "2",
+   "leftSaccadeCount": "0",
+   "rightSaccadeCount": "0",
+   "blinkCount": "3"
+}

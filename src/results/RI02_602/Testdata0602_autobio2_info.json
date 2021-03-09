@@ -1,0 +1,12 @@
+{
+   "name": "Testdata0602_autobio2",
+   "wavelet": "Mexican Hat",
+   "scale": "30",
+   "lowThreshold": "90",
+   "highThreshold": "600",
+   "upSaccadeCount": "2",
+   "downSaccadeCount": "1",
+   "leftSaccadeCount": "1",
+   "rightSaccadeCount": "0",
+   "blinkCount": "2"
+}
