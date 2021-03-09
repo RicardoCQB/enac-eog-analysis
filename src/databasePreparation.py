@@ -82,6 +82,7 @@ def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
 
     return eogSignalParts
 
+
 def getEogSAVParts(signal, triggerCsv):
     semanticParts = getEogSeveralParts(signal, triggerCsv,
                                        labelDict['SemanticAcessStart'],

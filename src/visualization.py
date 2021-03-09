@@ -19,14 +19,14 @@ def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
     :param yAxisLabel: label of the y axis
     :return:
     '''
-    plt.figure(figsize=(50, 20), dpi=90) #700,20
+    plt.figure(figsize=(20, 5), dpi=90) #700,20
     if start and end is not None:
         signal = signal[:, start:end]
     signal = np.swapaxes(signal,0,1)
     plt.plot(signal)
     plt.xlabel(xAxisLabel)
     plt.ylabel(yAxisLabel)
-    plt.ylim((-400,400))
+    plt.ylim((-500,500))
     plt.legend(labels)
     plt.show()
 
@@ -48,7 +48,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
         verticalEOG = verticalEOG[start:end]
         horizontalEOG = horizontalEOG[start:end]
 
-    plt.figure(figsize=(50, 20), dpi=90)
+    plt.figure(figsize=(20, 5), dpi=90)
     if mode == 'both':
         plt.plot(verticalEOG, color='cyan')
         plt.plot(horizontalEOG, color='magenta')
@@ -62,7 +62,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
 
     plt.xlabel('Datapoint')
     plt.ylabel('Amplitude (microVolts)')
-    plt.ylim((-400,400))
+    plt.ylim((-500,500))
     plt.legend(labels)
 
     # If the labels csv is being used, then the labels are stamped in the plot
