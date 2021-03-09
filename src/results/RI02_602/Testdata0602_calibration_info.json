@@ -1,0 +1,12 @@
+{
+   "name": "Testdata0602_calibration",
+   "wavelet": "Mexican Hat",
+   "scale": "30",
+   "lowThreshold": "90",
+   "highThreshold": "600",
+   "upSaccadeCount": "4",
+   "downSaccadeCount": "4",
+   "leftSaccadeCount": "3",
+   "rightSaccadeCount": "3",
+   "blinkCount": "4"
+}
