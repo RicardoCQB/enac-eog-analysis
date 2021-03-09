@@ -28,7 +28,7 @@ def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
     plt.ylabel(yAxisLabel)
     plt.ylim((-500,500))
     plt.legend(labels)
-    plt.show()
+
 
 def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both', triggerCsv=None,
                    triggerStart=None, triggerEnd=None):
@@ -71,4 +71,4 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
             if triggerStart <= triggerPoint <= triggerEnd:
                 plt.axvline(x=triggerPoint-triggerStart, color='black')
                 plt.text(triggerPoint-triggerStart, 0, triggerLabel, rotation='vertical')
-    plt.show()
+                
