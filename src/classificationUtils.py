@@ -1,4 +1,28 @@
 import numpy as np
+from scipy import signal
+
+
+def findPeaks(cwt, minPeakHeight, maxPeakHeight, minPeakDistance):
+    '''
+    This function uses the continuous wavelet transform of the signal to find the negative and positive peaks of the signal
+    :param cwt: continuous wavelet transform of the EOG signal
+    :param minPeakHeight: minimum coefficient value for the peak's height
+    :param maxPeakHeight: maximum coefficient value for the peak's height
+    :param minPeakDistance: minimum distance between same signal peaks for them to be detected
+    :return: returns an array with the all the peaks ordered by their initial signal's position
+    '''
+
+    # Returns peaks' indexes and their properties in a dict
+    # The peaks are detected in the module version of signal in order to find the negative peaks as well
+    negativePeaks, propertiesN = signal.find_peaks(abs(cwt), height=[-maxPeakHeight, -minPeakHeight], distance=minPeakDistance)
+    positivePeaks, propertiesP = signal.find_peaks(abs(cwt), height=[minPeakHeight, maxPeakHeight], distance=minPeakDistance)
+
+    allPeaks = np.hstack((negativePeaks, positivePeaks))
+
+    allPeaks = np.sort(allPeaks)
+
+    return allPeaks
+
 
 def peaksToBinary(peaksArray, eogCWT):
     '''
@@ -8,6 +32,8 @@ def peaksToBinary(peaksArray, eogCWT):
     :param eogCWT: eog signal array after the continuous wavelet transform
     :return: peaks binary array
     '''
+
+    peaks = np.zeros((3, len(peaksArray)))
 
     # Create array with same length as the signal and transform peaks into 0 (negative peak) and 1 (positive peak)
     peaksBinary = np.zeros(len(peaksArray))

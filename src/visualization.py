@@ -71,4 +71,3 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
             if triggerStart <= triggerPoint <= triggerEnd:
                 plt.axvline(x=triggerPoint-triggerStart, color='black')
                 plt.text(triggerPoint-triggerStart, 0, triggerLabel, rotation='vertical')
-                
