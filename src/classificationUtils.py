@@ -30,18 +30,19 @@ def peaksToBinary(peaksArray, eogCWT):
     The 0's represent negative peaks and the 1´s represent positive peaks
     :param peaksArray: array with the indexes of the peaks of the eogCWT
     :param eogCWT: eog signal array after the continuous wavelet transform
-    :return: peaks binary array
+    :return: peaks binary array (array with the indexes, the values of the indexes).
     '''
 
-    peaks = np.zeros((3, len(peaksArray)))
+    peaksBinary = np.zeros((3, len(peaksArray)))
 
-    # Create array with same length as the signal and transform peaks into 0 (negative peak) and 1 (positive peak)
-    peaksBinary = np.zeros(len(peaksArray))
+    # Create array with same length as the number of peaks and transform peaks into 0 (negative peak) and 1 (positive peak)
     for i, peakV in enumerate(peaksArray):
+        peaksBinary[0][i] = peakV
+        peaksBinary[1][i] = eogCWT[peakV]
         if eogCWT[peakV] < 0:
-            peaksBinary[i] = 0
+            peaksBinary[2][i] = 0
         elif eogCWT[peakV] > 0:
-            peaksBinary[i] = 1
+            peaksBinary[2][i] = 1
 
     return peaksBinary
 
