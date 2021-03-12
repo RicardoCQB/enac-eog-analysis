@@ -3,6 +3,7 @@ edf file from the non useful sections. This separation will be made using the tr
  labels_triggers_*.csv'''
 
 import numpy as np
+import datetime
 
 labelDict = {
     'CalibrationStart': 'calibration_EOG_C_start',
@@ -105,3 +106,11 @@ def getEogAnalysisSection(signal, triggerCsv):
     semanticParts, autobioParts, visualTaskParts = getEogSAVParts(signal, triggerCsv)
 
     return calibrationPart, semanticParts, autobioParts, visualTaskParts
+
+
+def datapointToSeconds(datapoint, sampleRateFreq):
+    return datapoint / sampleRateFreq
+
+
+def secondsToHMS(seconds):
+    str(datetime.timedelta(seconds=seconds))
