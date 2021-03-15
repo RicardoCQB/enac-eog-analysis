@@ -30,9 +30,8 @@ def peaksToBinary(peaksArray, eogCWT):
     The 0's represent negative peaks and the 1´s represent positive peaks
     :param peaksArray: array with the indexes of the peaks of the eogCWT
     :param eogCWT: eog signal array after the continuous wavelet transform
-    :return: peaks binary array (array with the indexes, the values of the indexes).
+    :return: peaks binary array (array with the indexes of the peaks, the values of the peaks and binary code for negative or positive peaks).
     '''
-
     peaksBinary = np.zeros((3, len(peaksArray)))
 
     # Create array with same length as the number of peaks and transform peaks into 0 (negative peak) and 1 (positive peak)
@@ -77,6 +76,6 @@ def countEyeMovements(vertPeaksString, horiPeaksString):
     downwardSaccadeCount = vertPeaksString.count('1001')
     leftSaccadeCount = horiPeaksString.count('0110')
     rightSaccadeCount = horiPeaksString.count('1001')
-    blinksCount = vertPeaksString.count('010') # This is wrong and needs to be worked on
+    blinksCount = vertPeaksString.count('010')
 
     return upwardSaccadeCount, downwardSaccadeCount, leftSaccadeCount, rightSaccadeCount, blinksCount
