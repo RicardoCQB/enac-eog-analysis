@@ -25,7 +25,7 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
     '''
     It returns the list of indexes that contain the desired label. It is useful when we want to select
     specific parts of the signal
-    :param triggerCsv: Pandas DataFrame with the trigger labels data
+    :param triggerCsv: array structure with the labels of the triggers and their datapoint index
     :param labelStart: String of the name of the section's starting label
     :param labelEnd: String of the name of the section's ending label
     :return: returns two lists with starting and ending index of the desired label
@@ -51,7 +51,7 @@ def getEogLabelIndexes(triggerCsv, labelStart, labelEnd):
 def getEogCalibrationPart(signal, triggerCsv):
     '''
     Returns the part of the EOG signal that corresponds to the calibration
-    :param signal: EOG vertical or horizontal signal
+    :param signal: vertical or horizontal EOG signal array
     :param triggerCsv: array structure with the labels of the triggers and their datapoint index
     :return: signal part corresponding to the calibration
     '''
@@ -72,6 +72,15 @@ def getEogCalibrationPart(signal, triggerCsv):
 
 
 def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
+    '''
+    This function returns the indexes of the several parts start and end points
+    Several parts such as the autobiographical, semantic and visual parts
+    :param signal: vertical or horizontal EOG signal array
+    :param triggerCsv: array structure with the labels of the triggers and their datapoint index
+    :param labelStart: String of the name of the section's starting label
+    :param labelEnd: String of the name of the section's ending label
+    :return: returns the signal parts corresponding do the chosen part
+    '''
     startIndexes, endIndexes = getEogLabelIndexes(triggerCsv, labelStart, labelEnd)
     eogSignalParts = []
 
@@ -85,6 +94,13 @@ def getEogSeveralParts(signal, triggerCsv, labelStart, labelEnd):
 
 
 def getEogSAVParts(signal, triggerCsv):
+    '''
+    This functions uses the getEogSeveralParts function to get simultaneously
+    :param signal: vertical or horizontal EOG signal array
+    :param triggerCsv: array structure with the labels of the triggers and their datapoint index
+    :return: returns a list with three items corresponding to arrays of the starting and ending indexes
+    of the Semantic, autobiographical and visual parts
+    '''
     semanticParts = getEogSeveralParts(signal, triggerCsv,
                                        labelDict['SemanticAcessStart'],
                                        labelDict['SemanticDebriefingStart'])
@@ -101,6 +117,13 @@ def getEogSAVParts(signal, triggerCsv):
 
 
 def getEogAnalysisSection(signal, triggerCsv):
+    '''
+    This function uses getEogSAVParts and getCalibrationParts to join every important part of the signal for analysis
+    :param signal: vertical or horizontal EOG signal array
+    :param triggerCsv: array structure with the labels of the triggers and their datapoint index
+    :return: returns a list with three items corresponding to arrays of the starting and ending indexes
+    of the Semantic, autobiographical and visual parts and the starting and ending point of the calibration phase
+    '''
     calibrationPart = getEogCalibrationPart(signal, triggerCsv)
 
     semanticParts, autobioParts, visualTaskParts = getEogSAVParts(signal, triggerCsv)
@@ -109,8 +132,19 @@ def getEogAnalysisSection(signal, triggerCsv):
 
 
 def datapointToSeconds(datapoint, sampleRateFreq):
+    '''
+    Transforms the given datapoint into seconds
+    :param datapoint: datapoint or index
+    :param sampleRateFreq: sample frequency which the signal was recorded
+    :return: datapoint in seconds
+    '''
     return datapoint / sampleRateFreq
 
 
 def secondsToHMS(seconds):
+    '''
+    Turns seconds into a string of hours, minutes and seconds
+    :param seconds: number of seconds
+    :return: string of hours, minutes and seconds
+    '''
     str(datetime.timedelta(seconds=seconds))
