@@ -33,8 +33,21 @@ class TestDataPreparation(unittest.TestCase):
         self.assertEqual(semanticParts[0].shape, (4, 27154))
 
     def test_getEogSAVParts(self):
+        semanticPartsGT = 5
         semanticParts, autobioParts, visualTaskParts = databasePreparation.getEogSAVParts(self.signal, self.triggerCsv)
-        print(len(semanticParts))
+        self.assertEquals(len(semanticParts), semanticPartsGT)
+
+
+    def test_arrayToMat(self):
+        array = [10, 20, 30, 40, 50]
+
+        databasePreparation.arrayToMat(array, 'test_arrayToMat')
+
+    def test_matToNumpyArray(self):
+        arrayGT = [10, 20, 30, 40, 50]
+        array = databasePreparation.matToNumpyArray('test_arrayToMat')
+        for a, b in zip(array, arrayGT):
+            self.assertEqual(a, b)
 
 
 if __name__ == '__main__':

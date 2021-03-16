@@ -161,7 +161,7 @@ def arrayToMat(numpyArray, filename):
     '''
     # Creates the x data that represents the indexes of the signal and turns the signal into a list
     x = list(range(0, len(numpyArray)))
-    y = numpyArray.tolist()
+    y = numpyArray
 
     # Creates a dictionary with the indexes and the values of the signal
     dictArray = {'x': x, 'y': y}
@@ -178,5 +178,9 @@ def matToNumpyArray(filename):
     dictArray = {}
     sio.loadmat('{}.mat'.format(filename), dictArray)
 
-    array = np.array(dictArray['y'])
+    array = dictArray['y']
+    array = array.reshape(len(array[0]),)
     return array
+
+
+
