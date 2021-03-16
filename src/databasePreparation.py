@@ -4,6 +4,7 @@ edf file from the non useful sections. This separation will be made using the tr
 
 import numpy as np
 import datetime
+import scipy.io as sio
 
 labelDict = {
     'CalibrationStart': 'calibration_EOG_C_start',
@@ -148,3 +149,20 @@ def secondsToHMS(seconds):
     :return: string of hours, minutes and seconds
     '''
     str(datetime.timedelta(seconds=seconds))
+
+
+def arrayToMatlab(numpyArray, filename):
+    '''
+    This function turns an 1d numpy array from python into a list and saves it into a matlab  .mat file
+    so it can be used in matlab scripts
+    :param numpyArray: numpy array of 1 dimensions (n,)
+    :param filename: string that contains the name of the .mat file
+    :return: null
+    '''
+    # Creates the x data that represents the indexes of the signal and turns the signal into a list
+    x = list(range(0, len(numpyArray)))
+    y = numpyArray.tolist()
+
+    # Creates a dictionary with the indexes and the values of the signal
+    dict = {'x': x, 'y': y}
+    sio.savemat('{}.mat'.format(filename), dict)
