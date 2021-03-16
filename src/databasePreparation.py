@@ -151,7 +151,7 @@ def secondsToHMS(seconds):
     str(datetime.timedelta(seconds=seconds))
 
 
-def arrayToMatlab(numpyArray, filename):
+def arrayToMat(numpyArray, filename):
     '''
     This function turns an 1d numpy array from python into a list and saves it into a matlab  .mat file
     so it can be used in matlab scripts
@@ -164,5 +164,19 @@ def arrayToMatlab(numpyArray, filename):
     y = numpyArray.tolist()
 
     # Creates a dictionary with the indexes and the values of the signal
-    dict = {'x': x, 'y': y}
-    sio.savemat('{}.mat'.format(filename), dict)
+    dictArray = {'x': x, 'y': y}
+    sio.savemat('{}.mat'.format(filename), dictArray)
+
+
+def matToNumpyArray(filename):
+    '''
+    This function reads the filename.mat file and turns it into a 1d numpy array
+    :param filename: string with the filename of the file (without the '.mat')
+    :return: returns a numpy array of the read .mat file
+    '''
+
+    dictArray = {}
+    sio.loadmat('{}.mat'.format(filename), dictArray)
+
+    array = np.array(dictArray['y'])
+    return array
