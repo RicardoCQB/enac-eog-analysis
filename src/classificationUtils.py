@@ -14,8 +14,8 @@ def findPeaks(cwt, minPeakHeight, maxPeakHeight, minPeakDistance):
 
     # Returns peaks' indexes and their properties in a dict
     # The peaks are detected in the module version of signal in order to find the negative peaks as well
-    negativePeaks, propertiesN = signal.find_peaks(abs(cwt), height=[-maxPeakHeight, -minPeakHeight], distance=minPeakDistance)
-    positivePeaks, propertiesP = signal.find_peaks(abs(cwt), height=[minPeakHeight, maxPeakHeight], distance=minPeakDistance)
+    negativePeaks, propertiesN = signal.find_peaks(-cwt, height=[minPeakHeight, maxPeakHeight], distance=minPeakDistance)
+    positivePeaks, propertiesP = signal.find_peaks(cwt, height=[minPeakHeight, maxPeakHeight], distance=minPeakDistance)
 
     allPeaks = np.hstack((negativePeaks, positivePeaks))
 
