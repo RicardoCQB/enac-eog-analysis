@@ -131,3 +131,7 @@ dmypy.json
 *.png
 *.json
 *.mat
+
+# Matlab Libraries
+/src/matlabFiles/VisLab-EEG-Blinks-b70ec87
+/src/matlabFiles/eeglab2021.0
