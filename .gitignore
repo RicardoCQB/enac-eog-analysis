@@ -135,3 +135,5 @@ dmypy.json
 # Matlab Libraries
 /src/matlabFiles/VisLab-EEG-Blinks-b70ec87
 /src/matlabFiles/eeglab2021.0
+*.set
+*.fdt
