@@ -186,10 +186,17 @@ def matToNumpyArray(filename):
 def saveNumpyArray(numpyArray, filename):
     with open(filename, 'wb') as f:
         np.save(f, numpyArray)
-        
+
 
 def loadNumpyArray(filename):
     with open(filename, 'rb') as f:
         return np.load(filename)
+
+
+def arrayBlinkAlgorithmFormat(npArray):
+    newNpArray = npArray[0:3, :]
+    newNpArray = np.transpose(newNpArray)
+
+    return newNpArray
 
 
