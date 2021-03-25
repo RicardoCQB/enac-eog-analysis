@@ -137,3 +137,4 @@ dmypy.json
 /src/matlabFiles/eeglab2021.0
 *.set
 *.fdt
+*.npy
