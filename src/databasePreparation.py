@@ -183,4 +183,13 @@ def matToNumpyArray(filename):
     return array
 
 
+def saveNumpyArray(numpyArray, filename):
+    with open(filename, 'wb') as f:
+        np.save(f, numpyArray)
+        
+
+def loadNumpyArray(filename):
+    with open(filename, 'rb') as f:
+        return np.load(filename)
+
 
