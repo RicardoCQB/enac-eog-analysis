@@ -12,12 +12,12 @@ line2 = ALLEEG(x).data(2,:);
 line3 = ALLEEG(x).data(3,:);
 line4 = ALLEEG(x).data(4,:);
 
-% Horizontal and Vertical EOG signal
+% Horizontal and Vertical EOG si
 H_bi = line1 - line2 ;
 V_bi = line3 - line4 ; 
 
-% Adds the horizontal and vertical EOG to the eeglab dataset
-ALLEEG(x).data(5,:) = H_bi;
-ALLEEG(x).data(6,:) = V_bi;
-ALLEEG(x).nbchan = 6;
+% Ajoute donnees bipolaires a matrice
+ALLEEG(x).data(5,:) = H_bi
+ALLEEG(x).data(6,:) = V_bi
+ALLEEG(x).nbchan = 6
 

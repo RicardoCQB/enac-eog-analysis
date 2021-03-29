@@ -1,6 +1,9 @@
-% code pour importer les données de ALLEEG sous EOGh et EOHv afin de les
-% entrer dans eogert_offline pour la détection des saccades
-x = 2 % le nombre x est la ligne dans laquelle se trouvent les données dans ALLEEG
+% This code imports the ALLEEG as EOGh and EOGv for it to be used in the
+% eogert_offline algorithm
+
+% The index of the pre processed EEGLAB dataset
+x = 2;
+
 EOGh = ALLEEG(x).data(5,:); % 5 car les données EOG pour l'axe horizontal sont dans le channel 5
 EOGv = ALLEEG(x).data(6,:); % 6 car les données EOG pour l'axe horizontal sont dans le channel 6
 
