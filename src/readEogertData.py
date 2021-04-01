@@ -10,6 +10,8 @@ Reference to the article that describes this method:
 
 import databasePreparation
 import scipy.io as sio
+import numpy as np
+import databasePreparation
 
 
 def readTmpResults(path):
@@ -45,9 +47,14 @@ def getTmpResultsArrays(path):
     return saccadeStartTimestamps, saccadeDurations, blinkStartTimestamps, blinkDurations
 
 
-saccadeStarts, saccadeDurations, blinkStarts, blinkDurations = getTmpResultsArrays('C:/Users/Ricardo/source/enac-eog-analysis/src/matlabFiles/tmpResults_RI02.mat')
+#saccadeStarts, saccadeDurations, blinkStarts, blinkDurations = getTmpResultsArrays('C:/Users/Ricardo/source/enac-eog-analysis/src/matlabFiles/tmpResults_RI02.mat')
 
 
+def timeArrayToSamples(timeArray, frequencySample):
+    sampleArray = np.zeros(len(timeArray))
 
+    for time in timeArray:
+        sampleArray = databasePreparation.timeToSamples(time, frequencySample)
 
+    return sampleArray
 
