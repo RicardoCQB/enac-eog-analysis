@@ -2,7 +2,7 @@
 % eogert_offline algorithm
 
 % The index of the pre processed EEGLAB dataset
-x = 2;
+x = 3;
 
 EOGh = ALLEEG(x).data(5,:); % 5 car les données EOG pour l'axe horizontal sont dans le channel 5
 EOGv = ALLEEG(x).data(6,:); % 6 car les données EOG pour l'axe horizontal sont dans le channel 6

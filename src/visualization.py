@@ -71,3 +71,30 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
             if triggerStart <= triggerPoint <= triggerEnd:
                 plt.axvline(x=triggerPoint-triggerStart, color='black')
                 plt.text(triggerPoint-triggerStart, 0, triggerLabel, rotation='vertical')
+
+
+def sampleToTimePlot(signal, frequencySample):
+    '''
+    This function plots the signal in timestamps instead of samples
+    :param signal: signal values
+    :param frequencySample: frequency sample that the signal was sampled at
+    :return:
+    '''
+    plt.plot(range(len(signal)) / frequencySample, signal)
+    plt.xlabel('Time (seconds)')
+    plt.ylabel('Amplitude (microVolts)')
+
+
+def numSamplesToTimeArray(samples, frequencySample):
+    '''
+    This function uses the number of samples to turn
+    :param samples:
+    :param frequencySample:
+    :return:
+    '''
+    start = 0
+    step = 1/frequencySample
+
+    timeArray = np.arange(0, samples) * step + start
+
+    return timeArray
