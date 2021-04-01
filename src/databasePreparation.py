@@ -200,3 +200,21 @@ def arrayBlinkAlgorithmFormat(npArray):
     return newNpArray
 
 
+def numSamplesToTimeArray(samples, frequencySample):
+    '''
+    This function uses the number of samples to turn
+    :param samples:
+    :param frequencySample:
+    :return:
+    '''
+    start = 0
+    step = 1/frequencySample
+
+    timeArray = np.arange(0, samples) * step + start
+
+    return timeArray
+
+
+def timeToSamples(time, frequencySample):
+    return time * frequencySample
+

@@ -47,6 +47,7 @@ def getTmpResultsArrays(path):
 
 saccadeStarts, saccadeDurations, blinkStarts, blinkDurations = getTmpResultsArrays('C:/Users/Ricardo/source/enac-eog-analysis/src/matlabFiles/tmpResults_RI02.mat')
 
-    
+
+
 
 
