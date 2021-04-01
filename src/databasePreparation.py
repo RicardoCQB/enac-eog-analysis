@@ -216,5 +216,5 @@ def numSamplesToTimeArray(samples, frequencySample):
 
 
 def timeToSamples(time, frequencySample):
-    return time * frequencySample
+    return np.round(time * frequencySample)
 
