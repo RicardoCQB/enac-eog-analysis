@@ -13,8 +13,8 @@ line3 = ALLEEG(x).data(3,:);
 line4 = ALLEEG(x).data(4,:);
 
 % Horizontal and Vertical EOG signal
-H_bi = line1 - line2 ;
-V_bi = line3 - line4 ; 
+H_bi = line1 - line2 ; % left - right electrode
+V_bi = line4 - line3 ; % up - down electrode
 
 % Adds the horizontal and vertical EOG to the eeglab dataset
 ALLEEG(x).data(5,:) = H_bi;
