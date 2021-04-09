@@ -48,8 +48,8 @@ def peaksToBinary(peaksArray, eogCWT):
 
 def peaksBinaryToString(peaksBinary):
     '''
-    Turns the array with the binary code for the negative and positive peaks and turns it into to a string
-    :param peaksBinary: rray with the binary code for the negative and positive peaks
+    Turns the array with the peaks, peak value and binary code for the negative and positive peaks and turns it into to a string
+    :param peaksBinary: array with the binary code for the negative and positive peaks
     :return: returns a string with 0's and 1's
     '''
 
