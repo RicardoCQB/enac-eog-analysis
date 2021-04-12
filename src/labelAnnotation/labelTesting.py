@@ -21,14 +21,12 @@ import neurokit2 as nk
 
 
 # Reading the signals from the EDF file
-
 edfFileName = 'C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/Testdata0602.edf'
 eyesData = readFiles.readEog(edfFileName)
 
 freqSample = 2048
 
 # Reading the trigger labels for the different parts of the experiment
-
 labelsCsvFile = 'C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_602.csv'
 
 triggerCsv = readFiles.readCsvTriggerLabels(labelsCsvFile)
@@ -42,7 +40,6 @@ verticalEogDenoised4 = verticalEOG4
 horizontalEogDenoised4 = horizontalEOG4
 
 # Labeling the blinks
-
 fig, ax = plt.subplots()
 plt.subplots_adjust(bottom=0.45)
 
@@ -54,13 +51,12 @@ plt.axis([0, len(verticalEogDenoised4), -700, 700])
 # Slider
 axcolor = 'lightgoldenrodyellow'
 axpos = plt.axes([0.2, 0.1, 0.65, 0.03], facecolor=axcolor)
-
 spos = Slider(axpos, 'Pos', 0, len(verticalEogDenoised4))
 
 startInds = []
 endInds = []
 
-# Buttons
+# Buttons functions definition
 def labelButtonClick(event):
     x = plt.ginput(2)
     if None not in x:
@@ -77,22 +73,12 @@ def unlabelButtonClick(event):
     if endInds:
         endInds.pop()
 
-#
-# def onclick(event, coords):
-#     click = event.xdata, event.ydata
-#     if None not in click:  # clicking outside the plot area produces a coordinate of None, so we filter those out.
-#         print('x = {}, y = {}'.format(*click))
-#         coords.append(click)
-
-
-
 def update(val):
     pos = spos.val
     ax.axis([pos,pos+10000,-700,700])
     fig.canvas.draw_idle()
 
 spos.on_changed(update)
-
 
 axLabelButton = plt.axes([0.7, 0.05, 0.1, 0.075])
 axUnlabelButton = plt.axes([0.81, 0.05, 0.1, 0.075])
