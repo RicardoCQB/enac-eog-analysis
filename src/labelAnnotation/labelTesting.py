@@ -57,8 +57,11 @@ axpos = plt.axes([0.2, 0.1, 0.65, 0.03], facecolor=axcolor)
 
 spos = Slider(axpos, 'Pos', 0, len(verticalEogDenoised4))
 
+startInds = []
+endInds = []
+
 # Buttons
-def labelButtonClick(startInds, endInds):
+def labelButtonClick(event):
     print('lol')
     x = plt.ginput(2)
     if None not in x:
@@ -66,7 +69,7 @@ def labelButtonClick(startInds, endInds):
         startInds.append(x[0][0])
         endInds.append(x[1][0])
 
-def unlabelButtonClick(startInds, endInds):
+def unlabelButtonClick(event):
     startInds.pop()
     endInds.pop()
 
@@ -86,15 +89,14 @@ def update(val):
 
 spos.on_changed(update)
 
-blinkStartIndexes = []
-blinkEndIndexes = []
+
 axLabelButton = plt.axes([0.7, 0.05, 0.1, 0.075])
 axUnlabelButton = plt.axes([0.81, 0.05, 0.1, 0.075])
 
 labelButton = Button(axLabelButton, 'Label')
-labelButton.on_clicked(labelButtonClick(blinkStartIndexes, blinkEndIndexes))
+labelButton.on_clicked(labelButtonClick)
 
 unlabelButton = Button(axUnlabelButton, 'Unlabel')
-unlabelButton.on_clicked(unlabelButtonClick(blinkStartIndexes, blinkEndIndexes))
+unlabelButton.on_clicked(unlabelButtonClick)
 
 plt.show()
