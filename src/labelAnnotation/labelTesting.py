@@ -62,16 +62,20 @@ endInds = []
 
 # Buttons
 def labelButtonClick(event):
-    print('lol')
     x = plt.ginput(2)
     if None not in x:
-        print(x)
+        print(x[0][0])
+        print(x[1][0])
         startInds.append(x[0][0])
         endInds.append(x[1][0])
 
 def unlabelButtonClick(event):
-    startInds.pop()
-    endInds.pop()
+    print(startInds)
+    print(endInds)
+    if startInds:
+        startInds.pop()
+    if endInds:
+        endInds.pop()
 
 #
 # def onclick(event, coords):
