@@ -4,7 +4,7 @@ sys.path.append('..')
 
 import pyedflib
 import numpy as np
-from matplotlib.widgets import Slider
+from matplotlib.widgets import Slider, Button
 import matplotlib.pyplot as plt
 from scipy import signal
 import pandas as pd
@@ -44,23 +44,57 @@ horizontalEogDenoised4 = horizontalEOG4
 # Labeling the blinks
 
 fig, ax = plt.subplots()
-plt.subplots_adjust(bottom=0.25)
+plt.subplots_adjust(bottom=0.45)
 
 t = np.arange(0, len(verticalEogDenoised4), 1)
 s = verticalEogDenoised4
 l, = plt.plot(t,s)
-plt.axis([0, len(verticalEogDenoised4), -500, 500])
+plt.axis([0, len(verticalEogDenoised4), -700, 700])
 
+# Slider
 axcolor = 'lightgoldenrodyellow'
 axpos = plt.axes([0.2, 0.1, 0.65, 0.03], facecolor=axcolor)
 
 spos = Slider(axpos, 'Pos', 0, len(verticalEogDenoised4))
 
+# Buttons
+def labelButtonClick(startInds, endInds):
+    print('lol')
+    x = plt.ginput(2)
+    if None not in x:
+        print(x)
+        startInds.append(x[0][0])
+        endInds.append(x[1][0])
+
+def unlabelButtonClick(startInds, endInds):
+    startInds.pop()
+    endInds.pop()
+
+#
+# def onclick(event, coords):
+#     click = event.xdata, event.ydata
+#     if None not in click:  # clicking outside the plot area produces a coordinate of None, so we filter those out.
+#         print('x = {}, y = {}'.format(*click))
+#         coords.append(click)
+
+
+
 def update(val):
     pos = spos.val
-    ax.axis([pos,pos+10000,-600,600])
+    ax.axis([pos,pos+10000,-700,700])
     fig.canvas.draw_idle()
 
 spos.on_changed(update)
+
+blinkStartIndexes = []
+blinkEndIndexes = []
+axLabelButton = plt.axes([0.7, 0.05, 0.1, 0.075])
+axUnlabelButton = plt.axes([0.81, 0.05, 0.1, 0.075])
+
+labelButton = Button(axLabelButton, 'Label')
+labelButton.on_clicked(labelButtonClick(blinkStartIndexes, blinkEndIndexes))
+
+unlabelButton = Button(axUnlabelButton, 'Unlabel')
+unlabelButton.on_clicked(unlabelButtonClick(blinkStartIndexes, blinkEndIndexes))
 
 plt.show()
