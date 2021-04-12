@@ -60,14 +60,15 @@ endInds = []
 def labelButtonClick(event):
     x = plt.ginput(2)
     if None not in x:
-        print(x[0][0])
-        print(x[1][0])
-        startInds.append(x[0][0])
-        endInds.append(x[1][0])
+        startInd = np.round(x[0][0])
+        endInd = np.round(x[1][0])
+        if startInd < endInd:
+            print('Start: {}\nEnd: {]'.format(startInd, endInd))
+            startInds.append(startInd)
+            endInds.append(endInd)
 
 def unlabelButtonClick(event):
-    print(startInds)
-    print(endInds)
+    print('Removed start and end index: {}, {}'.format(startInds[-1], endInds[-1]))
     if startInds:
         startInds.pop()
     if endInds:
