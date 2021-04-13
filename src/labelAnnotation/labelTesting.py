@@ -56,6 +56,7 @@ spos = Slider(axpos, 'Scroll', 0, len(verticalEogDenoised4))
 
 startInds = []
 endInds = []
+areaSpan = []
 
 # Buttons functions definition
 def labelButtonClick(event):
@@ -65,6 +66,7 @@ def labelButtonClick(event):
         endInd = np.round(x[1][0])
         if startInd < endInd:
             print('Start: {}\nEnd: {}'.format(startInd, endInd))
+            areaSpan.append(ax.axvspan(startInd, endInd, color='red', alpha=0.4))
             startInds.append(startInd)
             endInds.append(endInd)
 
@@ -74,6 +76,9 @@ def unlabelButtonClick(event):
         startInds.pop()
     if endInds:
         endInds.pop()
+    if areaSpan:
+        areaSpan[-1].remove()
+        areaSpan.pop()
 
 def update(val):
     pos = spos.val
