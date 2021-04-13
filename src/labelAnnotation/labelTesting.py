@@ -63,7 +63,7 @@ def labelButtonClick(event):
         startInd = np.round(x[0][0])
         endInd = np.round(x[1][0])
         if startInd < endInd:
-            print('Start: {}\nEnd: {]'.format(startInd, endInd))
+            print('Start: {}\nEnd: {}'.format(startInd, endInd))
             startInds.append(startInd)
             endInds.append(endInd)
 
