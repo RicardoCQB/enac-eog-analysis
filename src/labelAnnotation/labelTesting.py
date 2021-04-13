@@ -41,7 +41,7 @@ horizontalEogDenoised4 = horizontalEOG4
 
 # Labeling the blinks
 fig, ax = plt.subplots()
-plt.subplots_adjust(bottom=0.45)
+plt.subplots_adjust(bottom=0.3)
 
 t = np.arange(0, len(verticalEogDenoised4), 1)
 s = verticalEogDenoised4
@@ -51,7 +51,7 @@ plt.axis([0, len(verticalEogDenoised4), -700, 700])
 # Slider
 axcolor = 'lightgoldenrodyellow'
 axpos = plt.axes([0.2, 0.1, 0.65, 0.03], facecolor=axcolor)
-spos = Slider(axpos, 'Pos', 0, len(verticalEogDenoised4))
+spos = Slider(axpos, 'Scroll', 0, len(verticalEogDenoised4))
 
 startInds = []
 endInds = []
@@ -81,8 +81,8 @@ def update(val):
 
 spos.on_changed(update)
 
-axLabelButton = plt.axes([0.7, 0.05, 0.1, 0.075])
-axUnlabelButton = plt.axes([0.81, 0.05, 0.1, 0.075])
+axLabelButton = plt.axes([0.6, 0.15, 0.1, 0.075])
+axUnlabelButton = plt.axes([0.72, 0.15, 0.1, 0.075])
 
 labelButton = Button(axLabelButton, 'Label')
 labelButton.on_clicked(labelButtonClick)
