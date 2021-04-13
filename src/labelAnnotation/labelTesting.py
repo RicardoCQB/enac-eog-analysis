@@ -18,6 +18,7 @@ from scipy import ndimage, misc
 import json
 import string
 import neurokit2 as nk
+import csv
 
 
 # Reading the signals from the EDF file
@@ -46,7 +47,7 @@ plt.subplots_adjust(bottom=0.3)
 t = np.arange(0, len(verticalEogDenoised4), 1)
 s = verticalEogDenoised4
 l, = plt.plot(t,s)
-plt.axis([0, len(verticalEogDenoised4), -700, 700])
+plt.axis([0, len(verticalEogDenoised4), -800, 800])
 
 # Slider
 axcolor = 'lightgoldenrodyellow'
@@ -76,7 +77,7 @@ def unlabelButtonClick(event):
 
 def update(val):
     pos = spos.val
-    ax.axis([pos,pos+10000,-700,700])
+    ax.axis([pos,pos+10000,-800,800])
     fig.canvas.draw_idle()
 
 spos.on_changed(update)
@@ -91,3 +92,14 @@ unlabelButton = Button(axUnlabelButton, 'Unlabel')
 unlabelButton.on_clicked(unlabelButtonClick)
 
 plt.show()
+
+def labelingToCsv(filename, startInds, endInds):
+    with open(filename, 'w', newline='') as f:
+        write = csv.writer(f, delimiter=';')
+        fields = ['start', 'end']
+        write.writerow(fields)
+        for startInd, endInd in zip(startInds, endInds):
+            write.writerow([startInd, endInd])
+
+
+labelingToCsv('blinkLabels.csv', startInds, endInds)
