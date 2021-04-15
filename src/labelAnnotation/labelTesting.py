@@ -28,9 +28,9 @@ eyesData = readFiles.readEog(edfFileName)
 freqSample = 2048
 
 # Reading the trigger labels for the different parts of the experiment
-labelsCsvFile = 'C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_602.csv'
+# labelsCsvFile = 'C:/Users/Ricardo\source/enac-eog-analysis/data/EOG_EyeLink/RI02/labels_triggers_602.csv'
 
-triggerCsv = readFiles.readCsvTriggerLabels(labelsCsvFile)
+# triggerCsv = readFiles.readCsvTriggerLabels(labelsCsvFile)
 
 # Pre-processing: noise removal using median filter
 verticalEOG4, horizontalEOG4 = preProcessing.electrodesToVertHori(eyesData, 0, 1, 2, 3)
@@ -82,7 +82,7 @@ def unlabelButtonClick(event):
 
 def update(val):
     pos = spos.val
-    ax.axis([pos,pos+10000,-800,800])
+    ax.axis([pos,pos+20000,-800,800])
     fig.canvas.draw_idle()
 
 spos.on_changed(update)
@@ -107,4 +107,4 @@ def labelingToCsv(filename, startInds, endInds):
             write.writerow([startInd, endInd])
 
 
-labelingToCsv('blinkLabels.csv', startInds, endInds)
+labelingToCsv('blinkLabels_Test.csv', startInds, endInds)

@@ -39,3 +39,7 @@ def calculateRecall(numCorrectDetected, numGroundTruth):
     recall = numCorrectDetected / numGroundTruth
 
     return recall
+
+
+def readingLabelCsv(filename):
+
