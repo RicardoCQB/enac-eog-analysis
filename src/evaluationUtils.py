@@ -40,6 +40,3 @@ def calculateRecall(numCorrectDetected, numGroundTruth):
 
     return recall
 
-
-def readingLabelCsv(filename):
-
