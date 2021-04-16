@@ -100,7 +100,7 @@ plt.show()
 
 def labelingToCsv(filename, startInds, endInds):
     with open(filename, 'w', newline='') as f:
-        write = csv.writer(f, delimiter=';')
+        write = csv.writer(f, delimiter=',')
         fields = ['start', 'end']
         write.writerow(fields)
         for startInd, endInd in zip(startInds, endInds):
@@ -108,20 +108,3 @@ def labelingToCsv(filename, startInds, endInds):
 
 
 labelingToCsv('blinkLabels_Test.csv', startInds, endInds)
-
-
-def readingLabelCsv(filename):
-    with open(filename, 'r', newline='') as f:
-        read = csv.reader(f, delimiter=';')
-        header = read.
-
-
-
-def readCsvTriggerLabels(fileName):
-    try:
-        triggerCsv = pd.read_csv(fileName)
-    except FileNotFoundError as e:
-        print(e)
-        print('\n The .csv file was not found, therefore the labels of the triggers will not be shown.')
-
-    return triggerCsv
