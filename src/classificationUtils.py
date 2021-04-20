@@ -46,7 +46,7 @@ def peaksToBinary(peaksArray, eogCWT):
     return peaksBinary
 
 
-def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=2000, saccadeLowerThreshold=2000, saccadeUpperThreshold=10000):
+def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=600, saccadeLowerThreshold=1000, saccadeUpperThreshold=6000):
     '''
     This function takes the array with the CWT peaks and tries to detect if the peaks represent a positive or negative saccade
     :param peaksBinary: peaks binary array (array with the indexes of the peaks, the values of the peaks and binary code for negative or positive peaks).
@@ -61,23 +61,23 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=2000, saccadeL
     for i in range(0, len(peakInd) - 3):
         startInterval = peakInd[i+1] - peakInd[i]
 
-        if peakBinary[i] == 0 and peakBinary[i+1] == 1: #and startInterval <= jumpIntervalThreshold:
+        if peakBinary[i] == 0 and peakBinary[i+1] == 1 and startInterval <= jumpIntervalThreshold:
             positiveStart = peakInd[i]
             endInterval = peakInd[i+3] - peakInd[i+2]
-            if peakBinary[i+2] == 1 and peakBinary[i+3] == 0: #and endInterval <= jumpIntervalThreshold:
+            if peakBinary[i+2] == 1 and peakBinary[i+3] == 0 and endInterval <= jumpIntervalThreshold:
                 positiveEnd = peakInd[i+3]
                 saccadeInterval = peakInd[i+3] - peakInd[i+2]
-                #if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
-                positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
+                if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
+                    positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
 
-        elif peakBinary[i] == 1 and peakBinary[i+1] == 0: #and startInterval <= jumpIntervalThreshold:
+        elif peakBinary[i] == 1 and peakBinary[i+1] == 0 and startInterval <= jumpIntervalThreshold:
             negativeStart = peakInd[i]
             endInterval = peakInd[i+3] - peakInd[i+2]
-            if peakBinary[i+2] == 0 and peakBinary[i+3] == 1:#and endInterval <= jumpIntervalThreshold:
+            if peakBinary[i+2] == 0 and peakBinary[i+3] == 1 and endInterval <= jumpIntervalThreshold:
                 negativeEnd = peakInd[i+3]
                 saccadeInterval = peakInd[i + 3] - peakInd[i]
-                #if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
-                negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
+                if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
+                    negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
 
     return positiveSaccadeStartEnd, negativeSaccadeStartEnd
 
