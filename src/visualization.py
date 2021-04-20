@@ -90,6 +90,6 @@ def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStar
 
     for positiveSaccade, negativeSaccade in zip(positiveSaccadeStartEnd, negativeSaccadeStartEnd):
         plt.axvspan(positiveSaccade[0], positiveSaccade[1], color='blue', alpha=0.2)
-        plt.axvspan(negativeSaccade[0], positiveSaccade[1], color='red', alpha=0.2)
+        plt.axvspan(negativeSaccade[0], negativeSaccade[1], color='red', alpha=0.2)
 
     plt.plot(signal)
