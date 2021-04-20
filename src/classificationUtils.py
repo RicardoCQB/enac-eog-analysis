@@ -61,23 +61,23 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=2000, saccadeL
     for i in range(0, len(peakInd) - 3):
         startInterval = peakInd[i+1] - peakInd[i]
 
-        if peakBinary[i] == 0 and peakBinary[i+1] == 1 and startInterval <= jumpIntervalThreshold:
-            positiveStart = peakBinary[i]
+        if peakBinary[i] == 0 and peakBinary[i+1] == 1: #and startInterval <= jumpIntervalThreshold:
+            positiveStart = peakInd[i]
             endInterval = peakInd[i+3] - peakInd[i+2]
-            if peakBinary[i+2] == 1 and peakBinary[i+3] == 0 and endInterval <= jumpIntervalThreshold:
-                positiveEnd = peakBinary[i+3]
-                saccadeInterval = peakBinary[i+3] - peakBinary[i+2]
-                if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
-                    positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
+            if peakBinary[i+2] == 1 and peakBinary[i+3] == 0: #and endInterval <= jumpIntervalThreshold:
+                positiveEnd = peakInd[i+3]
+                saccadeInterval = peakInd[i+3] - peakInd[i+2]
+                #if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
+                positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
 
-        elif peakBinary[i] == 1 and peakBinary[i+1] == 0 and startInterval <= jumpIntervalThreshold:
-            negativeStart = peakBinary[i]
+        elif peakBinary[i] == 1 and peakBinary[i+1] == 0: #and startInterval <= jumpIntervalThreshold:
+            negativeStart = peakInd[i]
             endInterval = peakInd[i+3] - peakInd[i+2]
-            if peakBinary[i+2] == 0 and peakBinary[i+3] == 1 and endInterval <= jumpIntervalThreshold:
-                negativeEnd = peakBinary[i+3]
-                saccadeInterval = peakBinary[i + 3] - peakBinary[i]
-                if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
-                    negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
+            if peakBinary[i+2] == 0 and peakBinary[i+3] == 1:#and endInterval <= jumpIntervalThreshold:
+                negativeEnd = peakInd[i+3]
+                saccadeInterval = peakInd[i + 3] - peakInd[i]
+                #if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
+                negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
 
     return positiveSaccadeStartEnd, negativeSaccadeStartEnd
 
