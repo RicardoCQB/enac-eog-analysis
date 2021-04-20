@@ -46,6 +46,18 @@ def peaksToBinary(peaksArray, eogCWT):
     return peaksBinary
 
 
+# def peaksBinarySaccadeAnalysis(peaksBinary):
+#     positiveSaccadeStartEnd = []
+#     negativeSaccadeStartEnd = []
+#
+#     peakInd = peaksBinary[0]
+#     peakBinary = peaksBinary[2]
+#
+#     for i, sampleIndex in enumerate(peakInd):
+#         peakInterval = peakInd[i+1] - peakInd[i]
+#         if peakBinary[i] == 0 and peakBinary[i+1] == 1 and peakInterval <= 200:
+#
+
 def peaksBinaryToString(peaksBinary):
     '''
     Turns the array with the peaks, peak value and binary code for the negative and positive peaks and turns it into to a string
