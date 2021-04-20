@@ -46,17 +46,38 @@ def peaksToBinary(peaksArray, eogCWT):
     return peaksBinary
 
 
-# def peaksBinarySaccadeAnalysis(peaksBinary):
-#     positiveSaccadeStartEnd = []
-#     negativeSaccadeStartEnd = []
-#
-#     peakInd = peaksBinary[0]
-#     peakBinary = peaksBinary[2]
-#
-#     for i, sampleIndex in enumerate(peakInd):
-#         peakInterval = peakInd[i+1] - peakInd[i]
-#         if peakBinary[i] == 0 and peakBinary[i+1] == 1 and peakInterval <= 200:
-#
+def peaksBinarySaccadeAnalysis(peaksBinary):
+    '''
+    This function takes the array with the CWT peaks and tries to
+    :param peaksBinary:
+    :return:
+    '''
+    positiveSaccadeStartEnd = []
+    negativeSaccadeStartEnd = []
+
+    jumpInvervalThreshold = 300
+
+    peakInd = peaksBinary[0]
+    peakBinary = peaksBinary[2]
+
+    for i, sampleIndex in enumerate(peakInd):
+        startInterval = peakInd[i+1] - peakInd[i]
+        if peakBinary[i] == 0 and peakBinary[i+1] == 1 and startInterval <= jumpInvervalThreshold:
+            positiveStart = peakBinary[i]
+            endInterval = peakInd[i+3] - peakInd[i+2]
+            if peakBinary[i+2] == 1 and peakBinary[i+3] == 0 and endInterval <= jumpInvervalThreshold:
+                positiveEnd = peakBinary[i+3]
+                positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
+        elif peakBinary[i] == 1 and peakBinary[i+1] == 0 and startInterval <= jumpInvervalThreshold:
+            negativeStart = peakBinary[i]
+            endInterval = peakInd[i+3] - peakInd[i+2]
+            if peakBinary[i+2] == 0 and peakBinary[i+3] == 1 and endInterval <= jumpInvervalThreshold:
+                negativeEnd = peakBinary[i+3]
+                negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
+
+    return positiveSaccadeStartEnd, negativeSaccadeStartEnd
+
+
 
 def peaksBinaryToString(peaksBinary):
     '''
