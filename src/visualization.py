@@ -83,3 +83,13 @@ def sampleToTimePlot(signal, frequencySample):
     plt.plot(range(len(signal)) / frequencySample, signal)
     plt.xlabel('Time (seconds)')
     plt.ylabel('Amplitude (microVolts)')
+
+
+def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStartEnd):
+    plt.figure(figsize=(20, 5), dpi=90)
+
+    for positiveSaccade, negativeSaccade in zip(positiveSaccadeStartEnd, negativeSaccadeStartEnd):
+        plt.axvspan(positiveSaccade[0], positiveSaccade[1], color='blue', alpha=0.2)
+        plt.axvspan(negativeSaccade[0], positiveSaccade[1], color='red', alpha=0.2)
+
+    plt.plot(signal)
