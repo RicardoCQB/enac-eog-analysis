@@ -46,7 +46,7 @@ def peaksToBinary(peaksArray, eogCWT):
     return peaksBinary
 
 
-def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=600, saccadeLowerThreshold=1000, saccadeUpperThreshold=6000):
+def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=500, saccadeLowerThreshold=500, saccadeUpperThreshold=6000):
     '''
     This function takes the array with the CWT peaks and tries to detect if the peaks represent a positive or negative saccade
     :param peaksBinary: peaks binary array (array with the indexes of the peaks, the values of the peaks and binary code for negative or positive peaks).
@@ -60,13 +60,13 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=600, saccadeLo
 
     for i in range(0, len(peakInd) - 3):
         startInterval = peakInd[i+1] - peakInd[i]
-
         if peakBinary[i] == 0 and peakBinary[i+1] == 1 and startInterval <= jumpIntervalThreshold:
             positiveStart = peakInd[i]
             endInterval = peakInd[i+3] - peakInd[i+2]
             if peakBinary[i+2] == 1 and peakBinary[i+3] == 0 and endInterval <= jumpIntervalThreshold:
                 positiveEnd = peakInd[i+3]
-                saccadeInterval = peakInd[i+3] - peakInd[i+2]
+                saccadeInterval = peakInd[i+3] - peakInd[i]
+                print('SaccadeInterval', saccadeInterval)
                 if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
                     positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
 
