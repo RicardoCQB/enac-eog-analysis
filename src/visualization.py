@@ -93,3 +93,8 @@ def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStar
         plt.axvspan(negativeSaccade[0], negativeSaccade[1], color='red', alpha=0.2)
 
     plt.plot(signal)
+
+    plt.figure(figsize=(20, 5), dpi=90)
+    plt.ylim(-500, 500)
+    plt.xlabel('Datapoint')
+    plt.ylabel('Amplitude (mV)')
