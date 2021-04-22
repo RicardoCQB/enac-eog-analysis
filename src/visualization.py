@@ -19,7 +19,7 @@ def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
     :param yAxisLabel: label of the y axis
     :return:
     '''
-    plt.figure(figsize=(20, 5), dpi=90) #700,20
+    plt.figure(figsize=(500, 5), dpi=90) #700,20
     if start and end is not None:
         signal = signal[:, start:end]
     signal = np.swapaxes(signal,0,1)
@@ -48,7 +48,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
         verticalEOG = verticalEOG[start:end]
         horizontalEOG = horizontalEOG[start:end]
 
-    plt.figure(figsize=(20, 5), dpi=90)
+    plt.figure(figsize=(500, 5), dpi=90)
     if mode == 'both':
         plt.plot(verticalEOG, color='cyan')
         plt.plot(horizontalEOG, color='magenta')
@@ -86,7 +86,7 @@ def sampleToTimePlot(signal, frequencySample):
 
 
 def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStartEnd):
-    plt.figure(figsize=(20, 5), dpi=90)
+    plt.figure(figsize=(500, 5), dpi=90)
 
     for positiveSaccade, negativeSaccade in zip(positiveSaccadeStartEnd, negativeSaccadeStartEnd):
         plt.axvspan(positiveSaccade[0], positiveSaccade[1], color='blue', alpha=0.2)
@@ -100,7 +100,7 @@ def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStar
 
 
 def plotTransformAndPeaks(cwtCoef, peaks, signal, orientation):
-    plt.figure(figsize=(20, 5), dpi=90)
+    plt.figure(figsize=(500, 5), dpi=90)
     plt.plot(cwtCoef, color='black', linestyle=':')
     plt.plot(peaks, cwtCoef[peaks], "x", color='red')
     plt.plot(signal, color='cyan')
