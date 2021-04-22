@@ -3,7 +3,7 @@ import pyedflib
 import pandas as pd
 
 
-def readEog(fileName):
+def readEog(fileName, channelsOfInterest):
     # Reading the signals from the EDF file
     try:
         f = pyedflib.EdfReader(fileName)
@@ -14,7 +14,7 @@ def readEog(fileName):
     # numSignals = f.signals_in_file
 
     # These are the numbers of the channels that interest us
-    channelsOfInterest = [256, 257, 258, 259]
+    #channelsOfInterest = [256, 257, 258, 259]
     numEyeChannels = len(channelsOfInterest)
 
     # signal_labels = f.getSignalLabels()

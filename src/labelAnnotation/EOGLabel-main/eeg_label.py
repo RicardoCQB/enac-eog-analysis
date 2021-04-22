@@ -125,7 +125,6 @@ class DataLoadAndPlot :
         return eyesData
 
     def getDataToPlot( self ) :
-        
         data = self.dataEDF[ [ 6, 7, 8 ] , : ]
         data = self.changeHzTo( data, 2048, 1000 )
         print( data.shape )
