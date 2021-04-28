@@ -115,11 +115,11 @@ class DataLoadAndPlot :
     def loadData( self, fileNameEDF ) :
 
         sigbufs, _, _, _ = self.readEDF( fileNameEDF )
-        eyesData = sigbufs[ [ 64, 65, 66, 67, 68, 69, 70, 71, 72 ] ]
+        eyesData = sigbufs[ [ 256, 257, 258, 259, 68, 69, 70, 71, 72 ] ]
 
-        eyesData[ 6 ] = eyesData[ 2 ] - eyesData[ 0 ]
-        eyesData[ 7 ] = eyesData[ 3 ] - eyesData[ 1 ]
-        eyesData[ 8 ] = eyesData[ 4 ] + eyesData[ 5 ]
+        eyesData[ 6 ] = eyesData[ 0 ] - eyesData[ 1 ]
+        eyesData[ 7 ] = eyesData[ 1 ] - eyesData[ 0 ]
+        eyesData[ 8 ] = eyesData[ 3 ] - eyesData[ 2 ]
         print(eyesData.shape)
         
         return eyesData
