@@ -153,13 +153,13 @@ class Window(QDialog):
         self.saccadeListLoaded = []
         self.blinkListLoaded = []
         
-        fileNameEDF = '.\eegDataSet.edf'
+        fileNameEDF = "C:/Users/Ricardo/source/enac-eog-analysis/data/EOG_EyeLink/RI02/Testdata0602.edf"
         self.myData = DataLoadAndPlot( fileNameEDF )
 
-        fileNameNPYSaccade = '.\exampleSaccade.npy'
+        fileNameNPYSaccade = '.\RI02_bloc6_saccadeLabels.npy'
         self.saccadeListLoaded = load( fileNameNPYSaccade )
         
-        fileNameNPYBlink = '.\exampleBlink.npy'
+        fileNameNPYBlink = '.\RI02_bloc6_blinkLabels.npy'
         self.blinkListLoaded = load( fileNameNPYBlink )
 
         # fileNameTxtSaccade = '..\..\Work\elocans\data Anais\DataWassim\\Testdatawassim2.txt'
