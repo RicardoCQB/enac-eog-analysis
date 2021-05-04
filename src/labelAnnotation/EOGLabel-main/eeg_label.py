@@ -141,6 +141,10 @@ class DataLoadAndPlot :
         return data
 
 
+def saveNumpyArray(numpyArray, filename):
+    with open(filename, 'wb') as f:
+        np.save(f, numpyArray)
+
 # used to start : https://www.geeksforgeeks.org/how-to-embed-matplotlib-graph-in-pyqt5/
 # main window
 # which inherits QDialog
@@ -154,13 +158,20 @@ class Window(QDialog):
         self.blinkListLoaded = []
         
         fileNameEDF = "C:/Users/Ricardo/source/enac-eog-analysis/data/EOG_EyeLink/RI02/Testdata0602.edf"
+
         self.myData = DataLoadAndPlot( fileNameEDF )
 
-        fileNameNPYSaccade = '.\RI02_bloc6_saccadeLabels.npy'
-        self.saccadeListLoaded = load( fileNameNPYSaccade )
-        
-        fileNameNPYBlink = '.\RI02_bloc6_blinkLabels.npy'
-        self.blinkListLoaded = load( fileNameNPYBlink )
+        fileNameNPYSaccade = './saccadeTimeStamp.npy'
+        try:
+            self.saccadeListLoaded = load( fileNameNPYSaccade )
+        except FileNotFoundError:
+            saveNumpyArray(self.saccadeListLoaded, fileNameNPYSaccade)
+
+        fileNameNPYBlink = './blinkTimeStamp.npy'
+        try:
+            self.blinkListLoaded = load( fileNameNPYBlink )
+        except FileNotFoundError:
+            saveNumpyArray(self.blinkListLoaded, fileNameNPYBlink)
 
         # fileNameTxtSaccade = '..\..\Work\elocans\data Anais\DataWassim\\Testdatawassim2.txt'
         # self.saccadeListLoaded = self.myData.loadTxt( fileNameTxtSaccade )
