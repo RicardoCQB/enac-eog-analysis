@@ -1,4 +1,5 @@
 '''This python file has some functions that help to evaluate the developed algorithms performance.'''
+import numpy as np
 
 import databasePreparation
 
@@ -43,5 +44,19 @@ def calculateRecall(numCorrectDetected, numGroundTruth):
     return recall
 
 
-def countCorrectDetectedGuillaumeLabeling(detected, groundTruth):
-    
+def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
+    correctSaccades = []
+    wrongSaccades = []
+
+    for i, saccade in enumerate(saccadeStartEnd):
+        saccadeDuration = saccade[1] - saccade[0]
+        saccadeMiddlePoint = saccade[0] + np.round(saccadeDuration/2)
+        for j, saccadeGT in enumerate(groundTruth):
+            if saccadeGT[0] <= saccadeMiddlePoint <= saccadeGT[1] and saccadeGT[3].find(direction) != -1:
+                correctSaccades.append(saccadeGT)
+                groundTruth.pop(j)
+            else:
+                wrongSaccades.append(saccadeGT)
+                groundTruth.append(j)
+
+    return correctSaccades, wrongSaccades
