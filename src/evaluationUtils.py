@@ -45,6 +45,14 @@ def calculateRecall(numCorrectDetected, numGroundTruth):
 
 
 def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
+    '''
+    This function takes a list with the start and end indexes of a type of saccade, for example an upwards saccade.
+    And compares this list with the groundtruth labels made by hand.
+    :param saccadeStartEnd: list of list compromised of start and end index [ [start, end] ... ]
+    :param direction: string with the direction of the saccade, e.g: "up"
+    :param groundTruth: list with the saccade labeling: [ [start end center "direction" ] ... ]
+    :return: it returns a list of the correctly guessed and wrongly guessed saccades
+    '''
     correctSaccades = []
     wrongSaccades = []
 
@@ -60,3 +68,6 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
                 groundTruth.append(j)
 
     return correctSaccades, wrongSaccades
+
+#def saccadeConfusionMatrix(correctSaccades, wrongSaccades, direction):
+
