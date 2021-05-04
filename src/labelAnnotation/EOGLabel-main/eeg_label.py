@@ -157,7 +157,7 @@ class Window(QDialog):
         self.saccadeListLoaded = []
         self.blinkListLoaded = []
         
-        fileNameEDF = "C:/Users/Ricardo/source/enac-eog-analysis/data/EOG_EyeLink/RI02/Testdata0602.edf"
+        fileNameEDF = "E:\Anais data EOG_EyeLink\RI02\EOG\Testdata0802.edf"
 
         self.myData = DataLoadAndPlot( fileNameEDF )
 

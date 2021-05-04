@@ -1,5 +1,7 @@
 '''This python file has some functions that help to evaluate the developed algorithms performance.'''
 
+import databasePreparation
+
 def countCorrectDetected(detected, groundTruth):
     '''
     Function to count the number of correct labels detected
@@ -40,3 +42,6 @@ def calculateRecall(numCorrectDetected, numGroundTruth):
 
     return recall
 
+
+def countCorrectDetectedGuillaumeLabeling(detected, groundTruth):
+    
