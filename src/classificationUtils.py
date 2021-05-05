@@ -66,7 +66,6 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=500, saccadeLo
             if peakBinary[i+2] == 1 and peakBinary[i+3] == 0 and endInterval <= jumpIntervalThreshold:
                 positiveEnd = peakInd[i+3]
                 saccadeInterval = peakInd[i+3] - peakInd[i]
-                print('SaccadeInterval', saccadeInterval)
                 if saccadeLowerThreshold <= saccadeInterval <= saccadeUpperThreshold:
                     positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
 
