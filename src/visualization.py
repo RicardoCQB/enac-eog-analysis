@@ -115,8 +115,8 @@ def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation):
     plt.figure(figsize=(500, 5), dpi=90)
 
     for saccadeGT in groundTruth:
-        saccadeStart = np.round(float(saccadeGT[0])*2)
-        saccadeEnd = np.round(float(saccadeGT[1])*2)
+        saccadeStart = np.round(float(saccadeGT[0]))
+        saccadeEnd = np.round(float(saccadeGT[1]))
         if orientation == 'vertical':
             if saccadeGT[3].find('up') != -1:
                 plt.axvspan(saccadeStart, saccadeEnd, color='blue', alpha=0.2)
