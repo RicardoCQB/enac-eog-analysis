@@ -76,5 +76,5 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
 
 #def saccadeConfusionLine(correctSaccades, wrongSaccades, direction):
 
-def saccade
+#def saccade
 

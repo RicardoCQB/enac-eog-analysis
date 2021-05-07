@@ -109,3 +109,25 @@ def plotTransformAndPeaks(cwtCoef, peaks, signal, orientation):
     plt.ylabel('Amplitude (mV)')
     labels = ['{} EOG Wavelet Transform'.format(orientation), 'Transform Peaks', '{} EOG'.format(orientation)]
     plt.legend(labels)
+
+
+def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation):
+    plt.figure(figsize=(500, 5), dpi=90)
+
+    for saccadeGT in groundTruth:
+        if orientation == 'vertical':
+            if saccadeGT[3].find('up') != -1:
+                plt.axvspan(saccadeGT[0], saccadeGT[1], color='blue', alpha=0.2)
+            elif saccadeGT[3].find('down') != -1:
+                plt.axvspan(saccadeGT[0], saccadeGT[1], color='red', alpha=0.2)
+        elif orientation == 'horizontal':
+            if saccadeGT[3].find('left') != -1:
+                plt.axvspan(saccadeGT[0], saccadeGT[1], color='blue', alpha=0.2)
+            elif saccadeGT[3].find('right') != -1:
+                plt.axvspan(saccadeGT[0], saccadeGT[1], color='blue', alpha=0.2)
+
+    plt.plot(signal)
+
+    plt.ylim(-500, 500)
+    plt.xlabel('Datapoint')
+    plt.ylabel('Amplitude (mV)')
