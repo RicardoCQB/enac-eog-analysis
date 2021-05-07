@@ -57,18 +57,24 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
     wrongSaccades = []
 
     for i, saccade in enumerate(saccadeStartEnd):
-        print(' saccade ', saccade)
         saccadeDuration = saccade[1] - saccade[0]
+        print('Saccade Duration:', saccadeDuration)
         saccadeMiddlePoint = saccade[0] + np.round(saccadeDuration/2)
+        print('Saccade Start: ', saccade[0])
+        print('Saccade End: ', saccade[1])
+        print('Saccade MiddlePoint:', saccadeMiddlePoint)
         for j, saccadeGT in enumerate(groundTruth):
-            print('saccadeGT: ', saccadeGT)
-            if saccadeGT[0] <= saccadeMiddlePoint <= saccadeGT[1] and saccadeGT[3].find(direction) != -1:
+            saccadeStartGT = int(float(saccadeGT[0]))
+            saccadeEndGT = int(float(saccadeGT[1]))
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find(direction) != -1:
                 correctSaccades.append(saccadeGT)
-                groundTruth.pop(j)
-            else:
-                wrongSaccades.append(saccadeGT)
-                groundTruth.append(j)
+                print('saccadeGT: ', saccadeGT)
+                print('Saccade: ', saccade)
+                print('\n')
 
     return correctSaccades, wrongSaccades
 
 #def saccadeConfusionLine(correctSaccades, wrongSaccades, direction):
+
+def saccade
+
