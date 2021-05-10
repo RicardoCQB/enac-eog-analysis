@@ -5,6 +5,7 @@ edf file from the non useful sections. This separation will be made using the tr
 import numpy as np
 import datetime
 import scipy.io as sio
+from scipy.signal import resample
 
 labelDict = {
     'CalibrationStart': 'calibration_EOG_C_start',
@@ -220,7 +221,14 @@ def timeToSamples(time, frequencySample):
 
 
 def resampleSignal(signal, newSampleFrequency, oldSampleFrequency):
-    numSamples = np.round(len(signal) * newSampleFrequency / oldSampleFrequency)
-    newSignal = sio.resample(signal, numSamples)
+    '''
+    This function resamples the signal from one sampling frequency to another using the scipy python resample function
+    :param signal: the signal that is going to be resampled
+    :param newSampleFrequency: the new sampling frequency
+    :param oldSampleFrequency: the sampling frequency that is going to be changed
+    :return: signal after being resampled
+    '''
+    numSamples = int(np.round(len(signal) * newSampleFrequency / oldSampleFrequency))
+    newSignal = resample(signal, numSamples)
     return newSignal
 
