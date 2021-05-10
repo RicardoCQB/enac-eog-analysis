@@ -232,3 +232,11 @@ def resampleSignal(signal, newSampleFrequency, oldSampleFrequency):
     newSignal = resample(signal, numSamples)
     return newSignal
 
+
+def zeroPadSignal(signal, numPad):
+    pad = np.zeros(numPad)
+    newSignal = np.concatenate((pad, signal, pad))
+    print(newSignal)
+    print(len(newSignal))
+    return newSignal
+
