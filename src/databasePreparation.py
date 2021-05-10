@@ -218,3 +218,9 @@ def numSamplesToTimeArray(samples, frequencySample):
 def timeToSamples(time, frequencySample):
     return np.round(time * frequencySample)
 
+
+def resampleSignal(signal, newSampleFrequency, oldSampleFrequency):
+    numSamples = np.round(len(signal) * newSampleFrequency / oldSampleFrequency)
+    newSignal = sio.resample(signal, numSamples)
+    return newSignal
+
