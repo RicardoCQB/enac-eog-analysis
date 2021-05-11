@@ -231,3 +231,5 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     print('Precision: ', np.around(precision, decimals=2))
     print('Recall: ', np.around(recall, decimals=2))
     print('F1 Score:', np.around(f1Score, decimals=2))
+
+    print('False Positives (up, down, left, right: ', upFP, downFP, leftFP, rightFP)
