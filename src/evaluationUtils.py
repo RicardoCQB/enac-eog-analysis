@@ -193,7 +193,7 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     plt.show()
 
     leftRightConfMatrix = [[len(leftSaccadeTP), len(leftSaccadeFN)],
-                           [len(rightSaccadeTP), len(rightSaccadeFP)]]
+                           [len(rightSaccadeFN), len(rightSaccadeTP)]]
     leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
     plt.figure(figsize=(10, 7))
     sn.set(font_scale=1.4)  # for label size
