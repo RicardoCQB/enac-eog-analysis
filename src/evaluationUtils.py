@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 import databasePreparation
 
+
 def countCorrectDetected(detected, groundTruth):
     '''
     Function to count the number of correct labels detected
@@ -61,7 +62,7 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
 
     for i, saccade in enumerate(saccadeStartEnd):
         saccadeDuration = saccade[1] - saccade[0]
-        saccadeMiddlePoint = saccade[0] + np.round(saccadeDuration/2)
+        saccadeMiddlePoint = saccade[0] + np.round(saccadeDuration / 2)
         for j, saccadeGT in enumerate(groundTruth):
             saccadeStartGT = int(float(saccadeGT[0]))
             saccadeEndGT = int(float(saccadeGT[1]))
@@ -70,8 +71,8 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
 
     return correctSaccades, wrongSaccades
 
-def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
 
+def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
     upSaccadeStartEnd = allDirSaccadeStartEnd[0]
     downSaccadeStartEnd = allDirSaccadeStartEnd[1]
     leftSaccadeStartEnd = allDirSaccadeStartEnd[2]
@@ -99,7 +100,7 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
     # For the Up Saccades
     for i, upSaccade in enumerate(upSaccadeStartEnd):
         saccadeDuration = upSaccade[1] - upSaccade[0]
-        saccadeMiddlePoint = upSaccade[0] + np.round(saccadeDuration/2)
+        saccadeMiddlePoint = upSaccade[0] + np.round(saccadeDuration / 2)
         for j, saccadeGT in enumerate(groundTruth):
             saccadeStartGT = int(float(saccadeGT[0]))
             saccadeEndGT = int(float(saccadeGT[1]))
@@ -119,7 +120,7 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
     # For the down Saccades
     for i, downSaccade in enumerate(downSaccadeStartEnd):
         saccadeDuration = downSaccade[1] - downSaccade[0]
-        saccadeMiddlePoint = downSaccade[0] + np.round(saccadeDuration/2)
+        saccadeMiddlePoint = downSaccade[0] + np.round(saccadeDuration / 2)
         for j, saccadeGT in enumerate(groundTruth):
             saccadeStartGT = int(float(saccadeGT[0]))
             saccadeEndGT = int(float(saccadeGT[1]))
@@ -182,18 +183,35 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
 
 def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     [upSaccadeTP, upSaccadeFN, upSaccadeFP, downSaccadeTP, downSaccadeFN, downSaccadeFP, leftSaccadeTP,
-     leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP] = saccadeConfusion(allDirSaccadeStartEnd, groundTruth)
+     leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP] = saccadeConfusion(
+        allDirSaccadeStartEnd, groundTruth)
 
-    upDownConfMatrix = [[len(upSaccadeTP), len(upSaccadeFN)],
-                        [len(downSaccadeFN), len(downSaccadeTP)]]
+    upTP = len(upSaccadeTP)
+    upFN = len(upSaccadeFN)
+    upFP = len(upSaccadeFP)
+
+    downTP = len(downSaccadeTP)
+    downFN = len(downSaccadeFN)
+    downFP = len(downSaccadeFP)
+
+    leftTP = len(leftSaccadeTP)
+    leftFN = len(leftSaccadeFN)
+    leftFP = len(leftSaccadeFP)
+
+    rightTP = len(rightSaccadeTP)
+    rightFN = len(rightSaccadeFN)
+    rightFP = len(rightSaccadeFP)
+
+    upDownConfMatrix = [[upTP, upFN],
+                        [downFN, downTP]]
     upDownConfMatrixDF = pd.DataFrame(upDownConfMatrix, range(2), range(2))
-    plt.figure(figsize=(10,7))
+    plt.figure(figsize=(10, 7))
     sn.set(font_scale=1.4)  # for label size
     sn.heatmap(upDownConfMatrixDF, annot=True, annot_kws={"size": 16})  # font size
     plt.show()
 
-    leftRightConfMatrix = [[len(leftSaccadeTP), len(leftSaccadeFN)],
-                           [len(rightSaccadeFN), len(rightSaccadeTP)]]
+    leftRightConfMatrix = [[leftTP, leftFN],
+                           [rightFN, rightTP]]
     leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
     plt.figure(figsize=(10, 7))
     sn.set(font_scale=1.4)  # for label size
@@ -201,9 +219,15 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
 
     plt.show()
 
+    totalTP = upTP + downTP + leftTP + rightTP
+    totalFP = upFP + downFP + leftFP + rightFP
+    totalFN = upFN + downFN + leftFN + rightFN
 
+    precision = totalTP / (totalTP + totalFP)
+    recall = totalTP / (totalTP + totalFN)
 
+    f1Score = 2 * (precision * recall) / (precision + recall)
 
-
-
-
+    print('Precision: ', precision)
+    print('Recall: ', recall)
+    print('F1 Score:', f1Score)
