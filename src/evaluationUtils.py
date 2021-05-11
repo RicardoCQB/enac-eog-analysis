@@ -228,6 +228,6 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
 
     f1Score = 2 * (precision * recall) / (precision + recall)
 
-    print('Precision: ', precision)
-    print('Recall: ', recall)
-    print('F1 Score:', f1Score)
+    print('Precision: ', np.around(precision, decimals=2))
+    print('Recall: ', np.around(recall, decimals=2))
+    print('F1 Score:', np.around(f1Score, decimals=2))
