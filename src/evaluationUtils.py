@@ -1,5 +1,8 @@
 '''This python file has some functions that help to evaluate the developed algorithms performance.'''
 import numpy as np
+import seaborn as sn
+import pandas as pd
+import matplotlib.pyplot as plt
 
 import databasePreparation
 
@@ -67,7 +70,140 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
 
     return correctSaccades, wrongSaccades
 
-#def saccadeConfusionLine(correctSaccades, wrongSaccades, direction):
+def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
 
-#def saccade
+    upSaccadeStartEnd = allDirSaccadeStartEnd[0]
+    downSaccadeStartEnd = allDirSaccadeStartEnd[1]
+    leftSaccadeStartEnd = allDirSaccadeStartEnd[2]
+    rightSaccadeStartEnd = allDirSaccadeStartEnd[3]
+
+    upSaccadeTP = []
+    upSaccadeFN = []
+    upSaccadeFP = []
+
+    downSaccadeTP = []
+    downSaccadeFN = []
+    downSaccadeFP = []
+
+    leftSaccadeTP = []
+    leftSaccadeFN = []
+    leftSaccadeFP = []
+
+    rightSaccadeTP = []
+    rightSaccadeFN = []
+    rightSaccadeFP = []
+
+    # The predicted saccade was not found yet
+    found = False
+
+    # For the Up Saccades
+    for i, upSaccade in enumerate(upSaccadeStartEnd):
+        saccadeDuration = upSaccade[1] - upSaccade[0]
+        saccadeMiddlePoint = upSaccade[0] + np.round(saccadeDuration/2)
+        for j, saccadeGT in enumerate(groundTruth):
+            saccadeStartGT = int(float(saccadeGT[0]))
+            saccadeEndGT = int(float(saccadeGT[1]))
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('up') != -1:
+                upSaccadeTP.append(upSaccade)
+                found = True
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('down') != -1:
+                upSaccadeFN.append(upSaccade)
+                found = True
+        if found:
+            # Reset the found flag
+            found = False
+        elif not found:
+            # Add the not found saccade fo the False Positives List
+            upSaccadeFP.append(upSaccade)
+
+    # For the down Saccades
+    for i, downSaccade in enumerate(downSaccadeStartEnd):
+        saccadeDuration = downSaccade[1] - downSaccade[0]
+        saccadeMiddlePoint = downSaccade[0] + np.round(saccadeDuration/2)
+        for j, saccadeGT in enumerate(groundTruth):
+            saccadeStartGT = int(float(saccadeGT[0]))
+            saccadeEndGT = int(float(saccadeGT[1]))
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('down') != -1:
+                downSaccadeTP.append(downSaccade)
+                found = True
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('up') != -1:
+                downSaccadeFN.append(downSaccade)
+                found = True
+        if found:
+            # Reset the found flag
+            found = False
+        elif not found:
+            # Add the not found saccade fo the False Positives List
+            downSaccadeFP.append(downSaccade)
+
+    # For the left Saccades
+    for i, leftSaccade in enumerate(leftSaccadeStartEnd):
+        saccadeDuration = leftSaccade[1] - leftSaccade[0]
+        saccadeMiddlePoint = leftSaccade[0] + np.round(saccadeDuration / 2)
+        for j, saccadeGT in enumerate(groundTruth):
+            saccadeStartGT = int(float(saccadeGT[0]))
+            saccadeEndGT = int(float(saccadeGT[1]))
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('down') != -1:
+                leftSaccadeTP.append(leftSaccade)
+                found = True
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('up') != -1:
+                leftSaccadeFN.append(leftSaccade)
+                found = True
+        if found:
+            # Reset the found flag
+            found = False
+        elif not found:
+            # Add the not found saccade fo the False Positives List
+            leftSaccadeFP.append(leftSaccade)
+
+    # For the right Saccades
+    for i, rightSaccade in enumerate(rightSaccadeStartEnd):
+        saccadeDuration = rightSaccade[1] - rightSaccade[0]
+        saccadeMiddlePoint = rightSaccade[0] + np.round(saccadeDuration / 2)
+        for j, saccadeGT in enumerate(groundTruth):
+            saccadeStartGT = int(float(saccadeGT[0]))
+            saccadeEndGT = int(float(saccadeGT[1]))
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('down') != -1:
+                rightSaccadeTP.append(rightSaccade)
+                found = True
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('up') != -1:
+                rightSaccadeFN.append(rightSaccade)
+                found = True
+        if found:
+            # Reset the found flag
+            found = False
+        elif not found:
+            # Add the not found saccade fo the False Positives List
+            rightSaccadeFP.append(rightSaccade)
+
+    return [upSaccadeTP, upSaccadeFN, upSaccadeFP, downSaccadeTP, downSaccadeFN, downSaccadeFP,
+            leftSaccadeTP, leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP]
+
+
+def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
+    [upSaccadeTP, upSaccadeFN, upSaccadeFP, downSaccadeTP, downSaccadeFN, downSaccadeFP, leftSaccadeTP,
+     leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP] = saccadeConfusion(allDirSaccadeStartEnd, groundTruth)
+
+    upDownConfMatrix = [[len(upSaccadeTP), len(upSaccadeFP)],
+                        [len(downSaccadeTP), len(downSaccadeFP)]]
+    upDownConfMatrixDF = pd.DataFrame(upDownConfMatrix, range(2), range(2))
+    plt.figure(figsize=(10,7))
+    sn.set(font_scale=1.4)  # for label size
+    sn.heatmap(upDownConfMatrixDF, annot=True, annot_kws={"size": 16})  # font size
+    plt.show()
+
+    leftRightConfMatrix = [[len(leftSaccadeTP), len(leftSaccadeFP)],
+                           [len(rightSaccadeTP), len(rightSaccadeFP)]]
+    leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
+    plt.figure(figsize=(10, 7))
+    sn.set(font_scale=1.4)  # for label size
+    sn.heatmap(leftRightConfMatrixDF, annot=True, annot_kws={"size": 16})  # font size
+
+    plt.show()
+
+
+
+
+
+
 
