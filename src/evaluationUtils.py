@@ -143,10 +143,10 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
         for j, saccadeGT in enumerate(groundTruth):
             saccadeStartGT = int(float(saccadeGT[0]))
             saccadeEndGT = int(float(saccadeGT[1]))
-            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('down') != -1:
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('left') != -1:
                 leftSaccadeTP.append(leftSaccade)
                 found = True
-            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('up') != -1:
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('right') != -1:
                 leftSaccadeFN.append(leftSaccade)
                 found = True
         if found:
@@ -163,10 +163,10 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
         for j, saccadeGT in enumerate(groundTruth):
             saccadeStartGT = int(float(saccadeGT[0]))
             saccadeEndGT = int(float(saccadeGT[1]))
-            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('down') != -1:
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('right') != -1:
                 rightSaccadeTP.append(rightSaccade)
                 found = True
-            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('up') != -1:
+            if saccadeStartGT <= saccadeMiddlePoint <= saccadeEndGT and saccadeGT[3].find('left') != -1:
                 rightSaccadeFN.append(rightSaccade)
                 found = True
         if found:
@@ -184,15 +184,15 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     [upSaccadeTP, upSaccadeFN, upSaccadeFP, downSaccadeTP, downSaccadeFN, downSaccadeFP, leftSaccadeTP,
      leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP] = saccadeConfusion(allDirSaccadeStartEnd, groundTruth)
 
-    upDownConfMatrix = [[len(upSaccadeTP), len(upSaccadeFP)],
-                        [len(downSaccadeTP), len(downSaccadeFP)]]
+    upDownConfMatrix = [[len(upSaccadeTP), len(upSaccadeFN)],
+                        [len(downSaccadeFN), len(downSaccadeTP)]]
     upDownConfMatrixDF = pd.DataFrame(upDownConfMatrix, range(2), range(2))
     plt.figure(figsize=(10,7))
     sn.set(font_scale=1.4)  # for label size
     sn.heatmap(upDownConfMatrixDF, annot=True, annot_kws={"size": 16})  # font size
     plt.show()
 
-    leftRightConfMatrix = [[len(leftSaccadeTP), len(leftSaccadeFP)],
+    leftRightConfMatrix = [[len(leftSaccadeTP), len(leftSaccadeFN)],
                            [len(rightSaccadeTP), len(rightSaccadeFP)]]
     leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
     plt.figure(figsize=(10, 7))
