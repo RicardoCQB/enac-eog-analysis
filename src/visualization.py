@@ -133,3 +133,18 @@ def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation):
     plt.ylim(-500, 500)
     plt.xlabel('Datapoint')
     plt.ylabel('Amplitude (mV)')
+
+
+def plotSaccadeIntervals(signal, saccadeStartEnd, orientation):
+    plt.figure(figsize=(500, 5), dpi=90)
+
+    for saccade in saccadeStartEnd:
+        saccadeStart = saccade[0]
+        saccadeEnd = saccade[1]
+        plt.axvspan(saccadeStart, saccadeEnd, color='blue', alpha=0.2)
+
+    plt.plot(signal)
+
+    plt.ylim(-500, 500)
+    plt.xlabel('Datapoint')
+    plt.ylabel('Amplitude (mV)')
