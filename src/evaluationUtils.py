@@ -74,10 +74,11 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
 
 def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
     '''
-    
-    :param allDirSaccadeStartEnd:
-    :param groundTruth:
-    :return:
+    This function analyses the saccades that were detected by the algorithm and compares them to the groundTruth.
+    :param allDirSaccadeStartEnd: this a list that should contain the up, down, left and right list of saccades start and end
+    :param groundTruth: this ground truth is the saccade output of the labeling tool made by Guillaume that is present the file
+    eeg_label
+    :return: for every direction of a saccade it returns a list of its true positive, false negative and false positive saccades.
     '''
     upSaccadeStartEnd = allDirSaccadeStartEnd[0]
     downSaccadeStartEnd = allDirSaccadeStartEnd[1]
@@ -188,6 +189,14 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
 
 
 def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
+    '''
+    This function uses the true positives, false negatives and false positive saccades of every direction and calculates
+    the scores of the algorithm and plots a confusion matrix for horizontal and vertical saccades.
+    :param allDirSaccadeStartEnd: this a list that should contain the up, down, left and right list of saccades start and end
+    :param groundTruth: this ground truth is the saccade output of the labeling tool made by Guillaume that is present the file
+    eeg_label
+    :return: nothing
+    '''
     [upSaccadeTP, upSaccadeFN, upSaccadeFP, downSaccadeTP, downSaccadeFN, downSaccadeFP, leftSaccadeTP,
      leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP] = saccadeConfusion(
         allDirSaccadeStartEnd, groundTruth)
