@@ -86,6 +86,17 @@ def sampleToTimePlot(signal, frequencySample):
 
 
 def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStartEnd):
+    '''
+    This function plots two different types of saccades in different colors.
+    For example, in the vertical EOG the positive saccade could be the upward saccade
+    and the negative saccade the downward saccade.
+    In the horizontal EOG, the positive could be the left saccade and the negative
+    saccade the right saccade.
+    :param signal: signal to be plotted
+    :param positiveSaccadeStartEnd: positive saccade start and end list
+    :param negativeSaccadeStartEnd: negative saccade start and end list
+    :return:
+    '''
     plt.figure(figsize=(500, 5), dpi=90)
 
     for positiveSaccade, negativeSaccade in zip(positiveSaccadeStartEnd, negativeSaccadeStartEnd):
@@ -135,7 +146,13 @@ def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation):
     plt.ylabel('Amplitude (mV)')
 
 
-def plotSaccadeIntervals(signal, saccadeStartEnd, orientation):
+def plotSaccadeIntervals(signal, saccadeStartEnd):
+    '''
+    This function is for plotting intervals with a start and an end in the signal that is passed in the arguments
+    :param signal: signal to be plotted
+    :param saccadeStartEnd: list with a list containing the start and end of a saccade
+    :return:
+    '''
     plt.figure(figsize=(500, 5), dpi=90)
 
     for saccade in saccadeStartEnd:

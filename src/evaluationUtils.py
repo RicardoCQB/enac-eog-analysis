@@ -73,6 +73,12 @@ def saccadeEvaluation(saccadeStartEnd, direction, groundTruth):
 
 
 def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
+    '''
+    
+    :param allDirSaccadeStartEnd:
+    :param groundTruth:
+    :return:
+    '''
     upSaccadeStartEnd = allDirSaccadeStartEnd[0]
     downSaccadeStartEnd = allDirSaccadeStartEnd[1]
     leftSaccadeStartEnd = allDirSaccadeStartEnd[2]
