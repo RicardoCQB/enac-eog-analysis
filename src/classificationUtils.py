@@ -81,6 +81,28 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=500, saccadeLo
     return positiveSaccadeStartEnd, negativeSaccadeStartEnd
 
 
+def peaksBinarySaccadeAnalysisVersion2(peaksBinary, jumpIntervalThreshold=500, saccadeLowerThreshold=500, saccadeUpperThreshold=6000):
+    positiveSaccadeStartEnd = []
+    negativeSaccadeStartEnd = []
+
+    peakInd = peaksBinary[0]
+    peakBinary = peaksBinary[2]
+
+    for i in range(0, len(peakInd) - 3):
+        startInterval = peakInd[i + 1] - peakInd[i]
+        if peakBinary[i] == 0 and peakBinary[i + 1] == 1 and startInterval <= jumpIntervalThreshold:
+            positiveStart = peakInd[i]
+            positiveEnd = peakInd[i + 3]
+            positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
+
+        elif peakBinary[i] == 1 and peakBinary[i + 1] == 0 and startInterval <= jumpIntervalThreshold:
+            negativeStart = peakInd[i]
+            negativeEnd = peakInd[i + 3]
+            negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
+
+    return positiveSaccadeStartEnd, negativeSaccadeStartEnd
+
+
 def peaksBinaryToString(peaksBinary):
     '''
     Turns the array with the peaks, peak value and binary code for the negative and positive peaks and turns it into to a string
