@@ -81,7 +81,7 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=500, saccadeLo
     return positiveSaccadeStartEnd, negativeSaccadeStartEnd
 
 
-def peaksBinarySaccadeAnalysisVersion2(peaksBinary, jumpIntervalThreshold=500, saccadeLowerThreshold=500, saccadeUpperThreshold=6000):
+def peaksBinarySaccadeAnalysisVersion2(peaksBinary, jumpIntervalThreshold=500):
     positiveSaccadeStartEnd = []
     negativeSaccadeStartEnd = []
 
@@ -92,12 +92,12 @@ def peaksBinarySaccadeAnalysisVersion2(peaksBinary, jumpIntervalThreshold=500, s
         startInterval = peakInd[i + 1] - peakInd[i]
         if peakBinary[i] == 0 and peakBinary[i + 1] == 1 and startInterval <= jumpIntervalThreshold:
             positiveStart = peakInd[i]
-            positiveEnd = peakInd[i + 3]
+            positiveEnd = peakInd[i + 1]
             positiveSaccadeStartEnd.append([positiveStart, positiveEnd])
 
         elif peakBinary[i] == 1 and peakBinary[i + 1] == 0 and startInterval <= jumpIntervalThreshold:
             negativeStart = peakInd[i]
-            negativeEnd = peakInd[i + 3]
+            negativeEnd = peakInd[i + 1]
             negativeSaccadeStartEnd.append([negativeStart, negativeEnd])
 
     return positiveSaccadeStartEnd, negativeSaccadeStartEnd
