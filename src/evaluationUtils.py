@@ -224,7 +224,7 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     sn.set(font_scale=1.4)  # for label size
     xAxisLabels = ['Up GT', 'Down GT']
     yAxisLabels = ['Up CWT', 'Down CWT']
-    sn.heatmap(upDownConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, annot_kws={"size": 16})  # font size
+    sn.heatmap(upDownConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, fmt='d', annot_kws={"size": 16})  # font size
     plt.show()
 
     leftRightConfMatrix = [[leftTP, leftFN],
@@ -234,7 +234,7 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     sn.set(font_scale=1.4)  # for label size
     xAxisLabels = ['Left GT', 'Right GT']
     yAxisLabels = ['Left CWT', 'Right CWT']
-    sn.heatmap(leftRightConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, annot_kws={"size": 16})  # font size
+    sn.heatmap(leftRightConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, fmt='d', annot_kws={"size": 16})  # font size
 
     plt.show()
 
