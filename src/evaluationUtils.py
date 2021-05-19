@@ -220,7 +220,7 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     upDownConfMatrix = [[upTP, upFN],
                         [downFN, downTP]]
     upDownConfMatrixDF = pd.DataFrame(upDownConfMatrix, range(2), range(2))
-    plt.figure(figsize=(10, 7))
+    plt.figure(figsize=(8, 4))
     sn.set(font_scale=1.4)  # for label size
     xAxisLabels = ['Up GT', 'Down GT']
     yAxisLabels = ['Up CWT', 'Down CWT']
@@ -230,7 +230,7 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     leftRightConfMatrix = [[leftTP, leftFN],
                            [rightFN, rightTP]]
     leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
-    plt.figure(figsize=(10, 7))
+    plt.figure(figsize=(8, 4))
     sn.set(font_scale=1.4)  # for label size
     xAxisLabels = ['Left GT', 'Right GT']
     yAxisLabels = ['Left CWT', 'Right CWT']
