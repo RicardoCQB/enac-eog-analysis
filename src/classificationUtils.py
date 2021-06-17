@@ -81,7 +81,7 @@ def peaksBinarySaccadeAnalysis(peaksBinary, jumpIntervalThreshold=500, saccadeLo
     return positiveSaccadeStartEnd, negativeSaccadeStartEnd
 
 
-def peaksBinarySaccadeAnalysisVersion2(peaksBinary, jumpIntervalThreshold=500):
+def peaksBinarySaccadeAnalysisVersion2(peaksBinary, jumpIntervalThreshold=500, removeBlinks="false"):
     positiveSaccadeStartEnd = []
     negativeSaccadeStartEnd = []
 
@@ -138,3 +138,13 @@ def countEyeMovements(vertPeaksString, horiPeaksString):
     blinksCount = vertPeaksString.count('010')
 
     return upwardSaccadeCount, downwardSaccadeCount, leftSaccadeCount, rightSaccadeCount, blinksCount
+
+
+def numSamplesOverlap(interval1, interval2):
+    '''
+    This fuction returns the number of samples that overlap between the two intervals in the argument
+    :param interval1: first interval
+    :param interval2: second interval
+    :return: number of samples that overlap in the two intervals
+    '''
+    return max(0, min(int(interval1[1]), int(float(interval2[1]))) - max(int(interval1[0]), int(float(interval2[0]))))
