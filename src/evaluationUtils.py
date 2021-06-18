@@ -192,6 +192,7 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth, resultsPath, sectionName
     '''
     This function uses the true positives, false negatives and false positive saccades of every direction and calculates
     the scores of the algorithm and plots a confusion matrix for horizontal and vertical saccades.
+    :param resultsPath:
     :param allDirSaccadeStartEnd: this a list that should contain the up, down, left and right list of saccades start and end
     :param groundTruth: this ground truth is the saccade output of the labeling tool made by Guillaume that is present the file
     eeg_label
@@ -220,27 +221,30 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth, resultsPath, sectionName
     upDownConfMatrix = [[upTP, upFN],
                         [downFN, downTP]]
     upDownConfMatrixDF = pd.DataFrame(upDownConfMatrix, range(2), range(2))
-    plt.figure(figsize=(8, 4))
+    plt.figure(figsize=(10, 6))
     sn.set(font_scale=1.4)  # for label size
     xAxisLabels = ['Up GT', 'Down GT']
     yAxisLabels = ['Up CWT', 'Down CWT']
     sn.heatmap(upDownConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, fmt='d', annot_kws={"size": 16})  # font size
+    plt.title("Vertical Confusion Matrix", fontsize=18)
+    fig1 = plt.gcf()
     plt.show()
 
-    plt.savefig('{}_{}_verticalConfusionMatrix.png'.format(resultsPath, sectionName))
+    fig1.savefig('{}{}_verticalConfusionMatrix.png'.format(resultsPath, sectionName))
 
     leftRightConfMatrix = [[leftTP, leftFN],
                            [rightFN, rightTP]]
     leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
-    plt.figure(figsize=(8, 4))
+    plt.figure(figsize=(10, 6))
     sn.set(font_scale=1.4)  # for label size
     xAxisLabels = ['Left GT', 'Right GT']
     yAxisLabels = ['Left CWT', 'Right CWT']
     sn.heatmap(leftRightConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, fmt='d', annot_kws={"size": 16})  # font size
-
+    plt.title("Horizontal Confusion Matrix", fontsize=18)
+    fig1 = plt.gcf()
     plt.show()
 
-    plt.savefig('{}_{}_horizontalConfusionMatrix.png'.format(resultsPath, sectionName))
+    fig1.savefig('{}{}_horizontalConfusionMatrix.png'.format(resultsPath, sectionName))
 
     totalTP = upTP + downTP + leftTP + rightTP
     totalFP = upFP + downFP + leftFP + rightFP
