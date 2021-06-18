@@ -188,7 +188,7 @@ def saccadeConfusion(allDirSaccadeStartEnd, groundTruth):
             leftSaccadeTP, leftSaccadeFN, leftSaccadeFP, rightSaccadeTP, rightSaccadeFN, rightSaccadeFP]
 
 
-def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
+def confusionMatrix(allDirSaccadeStartEnd, groundTruth, resultsPath, sectionName):
     '''
     This function uses the true positives, false negatives and false positive saccades of every direction and calculates
     the scores of the algorithm and plots a confusion matrix for horizontal and vertical saccades.
@@ -227,6 +227,8 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     sn.heatmap(upDownConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, fmt='d', annot_kws={"size": 16})  # font size
     plt.show()
 
+    plt.savefig('{}_{}_verticalConfusionMatrix.png'.format(resultsPath, sectionName))
+
     leftRightConfMatrix = [[leftTP, leftFN],
                            [rightFN, rightTP]]
     leftRightConfMatrixDF = pd.DataFrame(leftRightConfMatrix, range(2), range(2))
@@ -237,6 +239,8 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth):
     sn.heatmap(leftRightConfMatrixDF, xticklabels=xAxisLabels, yticklabels=yAxisLabels, annot=True, fmt='d', annot_kws={"size": 16})  # font size
 
     plt.show()
+
+    plt.savefig('{}_{}_horizontalConfusionMatrix.png'.format(resultsPath, sectionName))
 
     totalTP = upTP + downTP + leftTP + rightTP
     totalFP = upFP + downFP + leftFP + rightFP
