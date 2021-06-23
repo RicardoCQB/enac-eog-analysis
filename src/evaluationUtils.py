@@ -277,5 +277,34 @@ def isTPOutliers(saccade, threshold):
         return False
 
 
+def normalizeSaccadeIntervals(saccadeArray, intervalSize):
+
+    normalizedSaccades = []
+
+    for saccade in saccadeArray:
+        saccadeInterval = saccade[1] - saccade[0]
+
+        if isIntervalEven(saccadeInterval) is False:
+            saccade[1] = saccade[1] + 1
+
+        if saccadeInterval > intervalSize:
+            intervalDif = saccadeInterval - intervalSize
+            saccade[0] = saccade[0] - intervalDif/2
+            saccade[1] = saccade[1] - intervalDif/2
+        elif saccadeInterval < intervalSize:
+            intervalDif = intervalSize - saccadeInterval
+            saccade[0] = saccade[0] + intervalDif/2
+            saccade[1] = saccade[1] + intervalDif/2
+
+        normalizedSaccades.append(saccade)
+
+    return normalizedSaccades
+
+
+def isIntervalEven(saccadeInterval):
+    if saccadeInterval % 2 == 0:
+        return True
+    else:
+        return False
 
 
