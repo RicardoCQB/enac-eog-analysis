@@ -262,3 +262,20 @@ def confusionMatrix(allDirSaccadeStartEnd, groundTruth, resultsPath, sectionName
     print('\nFalse Positives (up, down, left, right)s: ', upFP, downFP, leftFP, rightFP)
 
 
+def isTPOutliers(saccade, threshold):
+    '''
+    This function takes a saccade from the true positive saccades and analyses if it is an outlier
+    :param saccade: array with start and end index of the saccade
+    :param threshold: maximum interval that the saccade should have
+    :return: returns true if the saccade's interval is greater or equal than the threshold and false otherwise
+    '''
+    saccadeInterval = saccade[1] - saccade[0]
+
+    if saccadeInterval >= threshold:
+        return True
+    else:
+        return False
+
+
+
+
