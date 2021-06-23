@@ -293,8 +293,8 @@ def normalizeSaccadeIntervals(saccadeArray, intervalSize):
         saccadeEnd = saccade[1]
         saccadeInterval = saccadeEnd - saccadeStart
 
-        if isIntervalEven(saccadeInterval) is False:
-            saccadeEnd = saccadeEnd + 1
+        # if isIntervalEven(saccadeInterval) is False:
+        #     saccadeEnd = saccadeEnd + 1
 
         if saccadeInterval > intervalSize:
             intervalDif = saccadeInterval - intervalSize
