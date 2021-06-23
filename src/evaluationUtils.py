@@ -278,25 +278,36 @@ def isTPOutliers(saccade, threshold):
 
 
 def normalizeSaccadeIntervals(saccadeArray, intervalSize):
+    '''
+    This function takes an array of saccades and sees if it was the estabilished interval size.
+    If it doesn't, it adds or subtracts some more datapoints to that interval.
+    :param saccadeArray: array with saccade start and ends
+    :param intervalSize: interval that the saccade should have
+    :return: returns the array of normalized saccades
+    '''
 
     normalizedSaccades = []
 
     for saccade in saccadeArray:
-        saccadeInterval = saccade[1] - saccade[0]
+        saccadeStart = saccade[0]
+        saccadeEnd = saccade[1]
+        saccadeInterval = saccadeEnd - saccadeStart
 
         if isIntervalEven(saccadeInterval) is False:
-            saccade[1] = saccade[1] + 1
+            saccadeEnd = saccadeEnd + 1
 
         if saccadeInterval > intervalSize:
             intervalDif = saccadeInterval - intervalSize
-            saccade[0] = saccade[0] - intervalDif/2
-            saccade[1] = saccade[1] - intervalDif/2
+            saccadeStart = saccadeStart + intervalDif/2
+            saccadeEnd = saccadeEnd - intervalDif/2
+            normalizedSaccade = [saccadeStart, saccadeEnd]
         elif saccadeInterval < intervalSize:
             intervalDif = intervalSize - saccadeInterval
-            saccade[0] = saccade[0] + intervalDif/2
-            saccade[1] = saccade[1] + intervalDif/2
+            saccadeStart = saccadeStart - intervalDif/2
+            saccadeEnd = saccadeEnd + intervalDif/2
+            normalizedSaccade = [saccadeStart, saccadeEnd]
 
-        normalizedSaccades.append(saccade)
+        normalizedSaccades.append(normalizedSaccade)
 
     return normalizedSaccades
 
