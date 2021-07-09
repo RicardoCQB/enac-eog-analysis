@@ -312,7 +312,7 @@ def normalizeSaccadeIntervals(saccadeArray, intervalSize):
     return normalizedSaccades
 
 
-def normalizeBlinkIntervals(blinkGroundTruth, verticalEOG):
+def normalizeBlinkIntervals(blinkGroundTruth, verticalEOG, blinkIntervalSize):
     '''
     This function is similar to the normalize saccade intervals one, but its based on the blink ground truth
     instead of the CWT analysis and classfication of saccades.
@@ -320,7 +320,18 @@ def normalizeBlinkIntervals(blinkGroundTruth, verticalEOG):
     :param verticalEOG: vertical EOG array
     :return: returns blinkData which as datapoint array for each blink.
     '''
-    pass
+
+    for blink in blinkGroundTruth:
+        blinkDataPoints = verticalEOG[blink[0]:blink[1]]
+        blinkPeak = max(blinkDataPoints)
+        blinkDataPoints = blinkDataPoints.tolist()
+        blinkPeakIndex = blinkDataPoints.index(blinkPeak)
+        blink[0] = blink[0] + blinkPeakIndex - int(blinkIntervalSize/2)
+        blink[1] = blink[1] - blinkPeakIndex + int(blinkIntervalSize/2)
+        blink[2] = blinkPeakIndex
+
+
+    return blinkGroundTruth
 
 def isIntervalEven(saccadeInterval):
     if saccadeInterval % 2 == 0:
