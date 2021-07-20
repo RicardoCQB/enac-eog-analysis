@@ -321,17 +321,20 @@ def normalizeBlinkIntervals(blinkGroundTruth, verticalEOG, blinkIntervalSize):
     :return: returns blinkData which as datapoint array for each blink.
     '''
 
+    newGroundTruth = []
+
     for blink in blinkGroundTruth:
         blinkDataPoints = verticalEOG[blink[0]:blink[1]]
         blinkPeak = max(blinkDataPoints)
         blinkDataPoints = blinkDataPoints.tolist()
         blinkPeakIndex = blinkDataPoints.index(blinkPeak)
-        blink[0] = blink[0] + blinkPeakIndex - int(blinkIntervalSize/2)
-        blink[1] = blink[1] - blinkPeakIndex + int(blinkIntervalSize/2)
+        centerIndex = blink[0] + blinkPeakIndex
+        blink[0] = centerIndex - int(blinkIntervalSize/2)
+        blink[1] = centerIndex + int(blinkIntervalSize/2)
         blink[2] = blinkPeakIndex
+        newGroundTruth.append(blink)
 
-
-    return blinkGroundTruth
+    return newGroundTruth
 
 def isIntervalEven(saccadeInterval):
     if saccadeInterval % 2 == 0:
