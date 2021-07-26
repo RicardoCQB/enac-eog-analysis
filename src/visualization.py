@@ -30,11 +30,15 @@ def plotEogElectrodesSignal(signal, start=None, end=None, labels=[],
     plt.legend(labels)
 
 
-def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both', triggerCsv=None,
+def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both', figSize=500, triggerCsv=None,
                    triggerStart=None, triggerEnd=None):
     '''
     Function for plotting the vertical and horizontal EOG signals, these signals are the ones that will be used to
     detect and classify saccades.
+    :param triggerStart:
+    :param triggerEnd:
+    :param triggerCsv:
+    :param figSize:
     :param verticalEOG: vertical signal of the EOG, that means the up electrode values minus the down electrode valus
     :param horizontalEOG: horizontal signal of the EOG, left electrode signal values minus the right electrode signal values
     :param start: integer index of the start of the plot
@@ -48,7 +52,7 @@ def plotVertHorEOG(verticalEOG, horizontalEOG, start=None, end=None, mode='both'
         verticalEOG = verticalEOG[start:end]
         horizontalEOG = horizontalEOG[start:end]
 
-    plt.figure(figsize=(500, 5), dpi=90)
+    plt.figure(figsize=(figSize, 5), dpi=90)
     if mode == 'both':
         plt.plot(verticalEOG, color='cyan')
         plt.plot(horizontalEOG, color='magenta')
@@ -85,7 +89,7 @@ def sampleToTimePlot(signal, frequencySample):
     plt.ylabel('Amplitude (microVolts)')
 
 
-def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStartEnd):
+def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStartEnd, figSize=500):
     '''
     This function plots two different types of saccades in different colors.
     For example, in the vertical EOG the positive saccade could be the upward saccade
@@ -97,7 +101,7 @@ def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStar
     :param negativeSaccadeStartEnd: negative saccade start and end list
     :return:
     '''
-    plt.figure(figsize=(500, 5), dpi=90)
+    plt.figure(figsize=(figSize, 5), dpi=90)
 
     for positiveSaccade, negativeSaccade in zip(positiveSaccadeStartEnd, negativeSaccadeStartEnd):
         plt.axvspan(positiveSaccade[0], positiveSaccade[1], color='blue', alpha=0.2)
@@ -110,11 +114,11 @@ def plotSaccadeSpanInSignal(signal, positiveSaccadeStartEnd, negativeSaccadeStar
     plt.ylabel('Amplitude (mV)')
 
 
-def plotTransformAndPeaks(cwtCoef, peaks, signal, orientation):
-    plt.figure(figsize=(500, 5), dpi=90)
-    plt.plot(cwtCoef, color='black', linestyle=':')
+def plotTransformAndPeaks(cwtCoef, peaks, signal, orientation, figSize=500):
+    plt.figure(figsize=(figSize, 5), dpi=90)
+    plt.plot(cwtCoef, color='black', linestyle=':', alpha=0.3)
     plt.plot(peaks, cwtCoef[peaks], "x", color='red')
-    plt.plot(signal, color='cyan')
+    plt.plot(signal, color='black')
     plt.ylim(-500, 500)
     plt.xlabel('Datapoint')
     plt.ylabel('Amplitude (mV)')
@@ -122,8 +126,8 @@ def plotTransformAndPeaks(cwtCoef, peaks, signal, orientation):
     plt.legend(labels)
 
 
-def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation):
-    plt.figure(figsize=(500, 5), dpi=90)
+def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation, figSize=500):
+    plt.figure(figsize=(figSize, 5), dpi=90)
 
     for saccadeGT in groundTruth:
         saccadeStart = np.round(float(saccadeGT[0]))
@@ -146,14 +150,14 @@ def plotSaccadeGTSpanInSignal(signal, groundTruth, orientation):
     plt.ylabel('Amplitude (mV)')
 
 
-def plotSaccadeIntervals(signal, saccadeStartEnd):
+def plotSaccadeIntervals(signal, saccadeStartEnd, figSize=500):
     '''
     This function is for plotting intervals with a start and an end in the signal that is passed in the arguments
     :param signal: signal to be plotted
     :param saccadeStartEnd: list with a list containing the start and end of a saccade
     :return:
     '''
-    plt.figure(figsize=(500, 5), dpi=90)
+    plt.figure(figsize=(figSize, 5), dpi=90)
 
     for saccade in saccadeStartEnd:
         saccadeStart = saccade[0]
